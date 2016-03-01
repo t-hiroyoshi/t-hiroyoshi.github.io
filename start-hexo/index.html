@@ -1,0 +1,321 @@
+<!doctype html>
+<html class="use-motion">
+<head>
+  <title>Hexoを使って無料でブログを公開する | t-hiroyoshi-blog</title>
+  <meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css' async>
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" async/>
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" async/>
+
+<meta name="keywords" content="hexo, blog, github, githubpages" />
+
+
+
+<link rel="alternate" href="/atom.xml" title="t-hiroyoshi-blog" type="application/atom+xml" />
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+<meta name="description" content="なぜHexoなのか
+Node.jsでやれる
+めっちゃ簡単に静的サイトを構築できる
+テーマが多くて完成度が高い、さらにカスタムできる
+Markdownで記事が書けるので嬉しいよ!
+
+Hexoを使ってブログを公開するまでの手順HexoをインストールするまずはnpmでHexoをインストールします。
+npm install -g hexo
+次にブログの雛形を作成して依存パッケージをインストールします。
+h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexoを使って無料でブログを公開する">
+<meta property="og:url" content="http://t-hiroyoshi.github.io/start-hexo/index.html">
+<meta property="og:site_name" content="t-hiroyoshi-blog">
+<meta property="og:description" content="なぜHexoなのか
+Node.jsでやれる
+めっちゃ簡単に静的サイトを構築できる
+テーマが多くて完成度が高い、さらにカスタムできる
+Markdownで記事が書けるので嬉しいよ!
+
+Hexoを使ってブログを公開するまでの手順HexoをインストールするまずはnpmでHexoをインストールします。
+npm install -g hexo
+次にブログの雛形を作成して依存パッケージをインストールします。
+h">
+<meta property="og:updated_time" content="2016-02-24T14:05:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexoを使って無料でブログを公開する">
+<meta name="twitter:description" content="なぜHexoなのか
+Node.jsでやれる
+めっちゃ簡単に静的サイトを構築できる
+テーマが多くて完成度が高い、さらにカスタムできる
+Markdownで記事が書けるので嬉しいよ!
+
+Hexoを使ってブログを公開するまでの手順HexoをインストールするまずはnpmでHexoをインストールします。
+npm install -g hexo
+次にブログの雛形を作成して依存パッケージをインストールします。
+h">
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = { motion: true };
+</script>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="ja">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-69878701-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">t-hiroyoshi-blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">A tech blog</p>
+</div>
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i>
+              <br/>
+            
+            Tag
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i>
+              <br/>
+            
+            Archive
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/me" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i>
+              <br/>
+            
+            Me
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+  <div id="posts" class="posts-expand">
+    
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Hexoを使って無料でブログを公開する
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-11-19T22:14:39+09:00" content="2015-11-19">
+              2015-11-19
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/github/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#github</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/hexo/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#hexo</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        <span itemprop="articleBody"><h1 id="なぜHexoなのか"><a href="#なぜHexoなのか" class="headerlink" title="なぜHexoなのか"></a>なぜHexoなのか</h1><ul>
+<li>Node.jsでやれる</li>
+<li>めっちゃ簡単に静的サイトを構築できる</li>
+<li>テーマが多くて完成度が高い、さらにカスタムできる</li>
+<li>Markdownで記事が書けるので嬉しいよ!<br><br></li>
+</ul>
+<h1 id="Hexoを使ってブログを公開するまでの手順"><a href="#Hexoを使ってブログを公開するまでの手順" class="headerlink" title="Hexoを使ってブログを公開するまでの手順"></a>Hexoを使ってブログを公開するまでの手順</h1><h2 id="Hexoをインストールする"><a href="#Hexoをインストールする" class="headerlink" title="Hexoをインストールする"></a>Hexoをインストールする</h2><p>まずはnpmでHexoをインストールします。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
+<p>次にブログの雛形を作成して依存パッケージをインストールします。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo init &lt;your-blog-name&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;your-blog-name&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>ここまでくれば実際にページを見ることが可能です、<code>hexo server</code>と打った後<a href="http://localhost:4000" target="_blank" rel="external">localhost:4000</a>にアクセスしてみてください。デフォルトのテーマなので好みはあると思いますが、テーマは後で変えられるので安心してください!</p>
+<h2 id="Github-Pagesでブログを公開する"><a href="#Github-Pagesでブログを公開する" class="headerlink" title="Github Pagesでブログを公開する"></a>Github Pagesでブログを公開する</h2><p>ブログをGitHub Pagesを利用して公開してみようと思います、まずは<code>&lt;user-name&gt;.github.io</code>という名前のレポジトリを作成します。<br>デプロイはGitで行いたいと思うのでプラグインをインストールします。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>次にレポジトリの登録を行います、先ほど作成した雛形の中にある<code>_config.yml</code>を下記のように編集してください。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># Deployment&#10;deploy:&#10;  type: git&#10;  repo: git@github.com:&#60;user-name&#62;/&#60;user-name&#62;.github.io.git&#10;  branch: master</span><br></pre></td></tr></table></figure>
+<p>これでブログを公開する準備は完了です、デプロイしてみましょう。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo deploy -g</span><br></pre></td></tr></table></figure>
+<p>無事にデプロイできたら<code>http://&lt;user-name&gt;.github.io</code>にアクセスしてみてください、ブログが表示されれば成功です!</p>
+<h2 id="記事の追加をする"><a href="#記事の追加をする" class="headerlink" title="記事の追加をする"></a>記事の追加をする</h2><p>記事の追加は下記のコマンドを打つことで可能です、タイトルがそのままファイル名になるので日本語などは避けたほうが良いです。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">"page-title"</span></span><br></pre></td></tr></table></figure>
+<p>そうすると<code>source/_posts</code>の中に<code>page-title.md</code>ができていると思います、Markdownでゴリゴリ中身を書きましょう。<code>hexo server</code>でサーバーを動かしながら書くとブラウザをリロードするたびに更新されていくのでプレビュー代わりに使えます。<br>記事を書き終えたら公開して、Github Pagesにアクセスして実際に見てみてください。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo deploy -g</span><br></pre></td></tr></table></figure>
+<h2 id="テーマをインストールする"><a href="#テーマをインストールする" class="headerlink" title="テーマをインストールする"></a>テーマをインストールする</h2><p>まずはGithubなどで導入したいテーマを見つけてきてください、多分<code>hexo theme</code>とかで検索するとたくさん出てくると思います。細かい部分は自分で変更できるのでだいたい雰囲気で選んで良いと思います。良い感じのテーマが見つかったらクローンしてきます。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes</span><br><span class="line">git <span class="built_in">clone</span> git@github.com:&lt;theme-auther&gt;/&lt;theme-name&gt;.git</span><br></pre></td></tr></table></figure>
+<p>次に先ほどの<code>_config.yml</code>を書き換えます。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># Extensions&#10;theme: &#60;theme-name&#62;</span><br></pre></td></tr></table></figure>
+<p>これでテーマが適応されました、<code>hexo server</code>して実際に見てみてください。<br>テーマの細かい設定はそれぞれのテーマの<code>themes/&lt;theme-name&gt;/_config.yml</code>を変更することで可能です。<br>ある程度気にいる形になったらデプロイして公開しましょう!</p>
+<p>テーマやスタイルシートを変更した後にデプロイしてもデザインが変更されないことがあると思いますが、これは下のコマンドで解決することができます。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<p>この後に再びデプロイしてみてください、テーマやデザインシートの変更が反映されていると思います!</p>
+<h1 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h1><p>Hexoを使ってブログを公開する方法を書きました。<br>Hexoは静的サイトの構築が本当に簡単にできる素晴らしいツールだと思います、テーマも非常に完成度が高いものが多いので一瞬にしてそれなりにちゃんとしたブログが作れてしまうのは本当に驚きです。<br>ただHexoを使っていてひとつ辛いのは中国圏のユーザーが多いので英語ではなく中国語のドキュメント、ディスカッションが多いという点です、英語ならそれなりに読めますが中国語は辛い…</p>
+</span>
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Hexoを使って無料でブログを公開する" data-url="http://t-hiroyoshi.github.io/start-hexo/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/react-drag-drop/" rel="prev" title="ReactでDrag&Drop">
+                ReactでDrag&Drop <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+      
+    </footer>
+  </article>
+
+  </div>
+
+        </div>
+        
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </div>
+
+
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hiroyoshi Takahashi</span>
+</div>
+
+
+      </div>
+    </footer>
+  </div>
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+  
+  
+  
+    
+  <script type="text/javascript">
+    var disqus_shortname = 't-hiroyoshi';
+    var disqus_identifier = 'start-hexo/';
+    var disqus_title = 'Hexoを使って無料でブログを公開する';
+    var disqus_url = 'http://t-hiroyoshi.github.io/start-hexo/';
+
+    function run_disqus_script(disqus_script){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }
+    run_disqus_script('count.js');
+    
+      run_disqus_script('embed.js');
+    
+  </script>
+
+
+  
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+  
+</body>
+</html>
