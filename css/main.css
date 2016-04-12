@@ -1094,7 +1094,7 @@ body {
 }
 .posts-expand .post-eof {
   display: block;
-  margin: 160px auto 120px;
+  margin: 91px auto 120px;
   width: 8%;
   height: 1px;
   background: #ccc;
@@ -1443,7 +1443,6 @@ body {
 }
 .me-page a {
   display: inline-block;
-  margin: 10px;
 }
 .site-author-image {
   display: block;
