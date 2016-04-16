@@ -19,20 +19,20 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
-<meta name="description" content="こんにちは、@t-hiroyoshiです。ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。
-今回のテーマはアドテクで広告入札の部分に関わるDSP(Demand-Side Platform)を作るというものでした。DSPとは飛んでくる入札のリクエストに対しいくらでどんな広告を出したいかを返すものです、なので求められるものとしては高トラフィック(今回は">
+<meta name="description" content="こんにちは、t-hiroyoshiです。ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。
+今回のテーマはアドテクで広告入札の部分に関わるDSP(Demand-Side Platform)を作るというものでした。DSPとは飛んでくる入札のリクエストに対しいくらでどんな広告を出したいかを返すものです、なので求められるものとしては高トラフィック(今回は2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CyberAgentさんのアドテクコンペで特別賞頂いた話">
 <meta property="og:url" content="http://t-hiroyoshi.github.io/adtech-compe/index.html">
 <meta property="og:site_name" content="t-hiroyoshi-blog">
-<meta property="og:description" content="こんにちは、@t-hiroyoshiです。ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。
-今回のテーマはアドテクで広告入札の部分に関わるDSP(Demand-Side Platform)を作るというものでした。DSPとは飛んでくる入札のリクエストに対しいくらでどんな広告を出したいかを返すものです、なので求められるものとしては高トラフィック(今回は">
+<meta property="og:description" content="こんにちは、t-hiroyoshiです。ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。
+今回のテーマはアドテクで広告入札の部分に関わるDSP(Demand-Side Platform)を作るというものでした。DSPとは飛んでくる入札のリクエストに対しいくらでどんな広告を出したいかを返すものです、なので求められるものとしては高トラフィック(今回は2">
 <meta property="og:image" content="http://t-hiroyoshi.github.io/img/adtechArchitecture.png">
-<meta property="og:updated_time" content="2016-03-19T10:25:47.000Z">
+<meta property="og:updated_time" content="2016-04-16T09:13:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CyberAgentさんのアドテクコンペで特別賞頂いた話">
-<meta name="twitter:description" content="こんにちは、@t-hiroyoshiです。ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。
-今回のテーマはアドテクで広告入札の部分に関わるDSP(Demand-Side Platform)を作るというものでした。DSPとは飛んでくる入札のリクエストに対しいくらでどんな広告を出したいかを返すものです、なので求められるものとしては高トラフィック(今回は">
+<meta name="twitter:description" content="こんにちは、t-hiroyoshiです。ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。
+今回のテーマはアドテクで広告入札の部分に関わるDSP(Demand-Side Platform)を作るというものでした。DSPとは飛んでくる入札のリクエストに対しいくらでどんな広告を出したいかを返すものです、なので求められるものとしては高トラフィック(今回は2">
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = { motion: true };
 </script>
@@ -209,7 +209,7 @@
       
       
       
-        <span itemprop="articleBody"><p>こんにちは、@t-hiroyoshiです。<br>ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。</p>
+        <span itemprop="articleBody"><p>こんにちは、t-hiroyoshiです。<br>ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。</p>
 <p>今回のテーマはアドテクで広告入札の部分に関わるDSP(Demand-Side Platform)を作るというものでした。<br>DSPとは飛んでくる入札のリクエストに対しいくらでどんな広告を出したいかを返すものです、なので求められるものとしては高トラフィック(今回は2000QPS)をさばきつつ配信する広告を選び適切な価格で入札できるものといった感じです。さらにDSPには応答速度も問われ今回は100ms以内にレスポンスが返せないものは無効になるという設定でした。最終的な評価はCPC(クリックあたりのコスト)と予算の消化率で行われました。</p>
 <p>参加した理由ですがそろそろプログラミングやり始めて1年だしハッカソン的なのに出てみたいなって思っていた時にScalaMatsuri2016で見かけたCyberAgentさんのホームページ見てみてみたら学生向けのハッカソンの参加者を募集していて、何か面白そうだし応募してみたところ参加権を貰えたというのが理由です。</p>
 <h1 id="作ったもの-作ろうとしたもの"><a href="#作ったもの-作ろうとしたもの" class="headerlink" title="作ったもの(作ろうとしたもの)"></a>作ったもの(作ろうとしたもの)</h1><p>僕のチームはエンジニアの自分とデータサイエンティストのSou Konishi, Kouichi Takayamaの3人チームでした。お互いの強みを生かしつつなるべく依存し合わないような設計をしようと以下のようなアーキテクチャにしました。</p>

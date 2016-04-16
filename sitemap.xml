@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://t-hiroyoshi.github.io/spray-akka-benchmark/</loc>
+    
+    <lastmod>2016-04-16T09:30:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://t-hiroyoshi.github.io/adtech-compe/</loc>
+    
+    <lastmod>2016-04-16T09:13:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://t-hiroyoshi.github.io/me/index.html</loc>
     
     <lastmod>2016-04-12T12:35:53.000Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://t-hiroyoshi.github.io/start-hexo/</loc>
     
     <lastmod>2016-03-19T10:25:59.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://t-hiroyoshi.github.io/adtech-compe/</loc>
-    
-    <lastmod>2016-03-19T10:25:47.000Z</lastmod>
     
   </url>
   
