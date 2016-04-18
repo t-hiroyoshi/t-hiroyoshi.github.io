@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://t-hiroyoshi.github.io/"/>
-  <updated>2016-04-16T09:30:41.000Z</updated>
+  <updated>2016-04-18T13:20:13.000Z</updated>
   <id>http://t-hiroyoshi.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://t-hiroyoshi.github.io/spray-akka-benchmark/"/>
     <id>http://t-hiroyoshi.github.io/spray-akka-benchmark/</id>
     <published>2016-04-15T13:01:19.000Z</published>
-    <updated>2016-04-16T09:30:41.000Z</updated>
+    <updated>2016-04-18T13:20:13.000Z</updated>
     
     <content type="html">&lt;p&gt;こんにちは、t-hiroyoshiです。&lt;br&gt;今回は&lt;a href=&quot;http://t-hiroyoshi.github.io/akka-http-api/&quot;&gt;前回紹介&lt;/a&gt;した&lt;a href=&quot;http://doc.akka.io/docs/akka/2.4.4/scala/http/introduction.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Akka-HTTP&lt;/a&gt;の性能が気になったのでざっくりベンチマークを取ってみました。&lt;br&gt;ソースコードは&lt;a href=&quot;https://github.com/t-hiroyoshi/akka-http-vs-spray&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github&lt;/a&gt;にあげました。&lt;/p&gt;
 &lt;p&gt;それぞれのバージョン等は以下の通りです。&lt;/p&gt;

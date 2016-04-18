@@ -185,7 +185,7 @@ th {
 }
 body {
   position: relative;
-  font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: Lato, sans-serif, sans-serif;
   font-size: 14px;
   line-height: 2;
   color: #555;
@@ -216,7 +216,7 @@ h6 {
   padding: 0;
   font-weight: bold;
   line-height: 1;
-  font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: Lato, sans-serif, sans-serif;
 }
 h1 {
   font-size: 22px;
@@ -555,7 +555,7 @@ pre code {
 .gist .gist-file .gist-meta {
   background: #f7f7f7;
   color: #8e908c;
-  font: 13px Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font: 13px Lato, sans-serif, sans-serif;
   text-shadow: 0 0;
   padding: 0;
   margin-top: 1em;
@@ -714,7 +714,7 @@ body {
   color: #fff;
   background: #222;
   border-bottom: none;
-  font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: Lato, sans-serif, sans-serif;
 }
 .brand:hover {
   color: #fff;
@@ -1203,7 +1203,7 @@ body {
   margin-left: 60px;
   font-size: 16px;
   font-weight: normal;
-  font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: Lato, sans-serif, sans-serif;
   line-height: inherit;
 }
 .posts-collapse .post-title::after {
