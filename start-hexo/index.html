@@ -166,8 +166,8 @@ h">
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/github/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#github</span>
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
                     </a>
                 </span>
                 
@@ -186,8 +186,8 @@ h">
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
+                    <a href="/tags/github/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#github</span>
                     </a>
                 </span>
                 
@@ -216,7 +216,7 @@ h">
 <h2 id="Github-Pagesでブログを公開する"><a href="#Github-Pagesでブログを公開する" class="headerlink" title="Github Pagesでブログを公開する"></a>Github Pagesでブログを公開する</h2><p>ブログをGitHub Pagesを利用して公開してみようと思います、まずは<code>&lt;user-name&gt;.github.io</code>という名前のレポジトリを作成します。<br>デプロイはGitで行いたいと思うのでプラグインをインストールします。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <p>次にレポジトリの登録を行います、先ほど作成した雛形の中にある<code>_config.yml</code>を下記のように編集してください。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># Deployment&#10;deploy:&#10;  type: git&#10;  repo: git@github.com:&#60;user-name&#62;/&#60;user-name&#62;.github.io.git&#10;  branch: master</span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> git</span><br><span class="line"><span class="attr">  repo:</span> git@github.com:&lt;user-name&gt;/&lt;user-name&gt;.github.io.git</span><br><span class="line"><span class="attr">  branch:</span> master</span><br></pre></td></tr></table></figure>
 <p>これでブログを公開する準備は完了です、デプロイしてみましょう。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo deploy -g</span><br></pre></td></tr></table></figure>
 <p>無事にデプロイできたら<code>http://&lt;user-name&gt;.github.io</code>にアクセスしてみてください、ブログが表示されれば成功です!</p>
@@ -227,7 +227,7 @@ h">
 <h2 id="テーマをインストールする"><a href="#テーマをインストールする" class="headerlink" title="テーマをインストールする"></a>テーマをインストールする</h2><p>まずはGithubなどで導入したいテーマを見つけてきてください、多分<code>hexo theme</code>とかで検索するとたくさん出てくると思います。細かい部分は自分で変更できるのでだいたい雰囲気で選んで良いと思います。良い感じのテーマが見つかったらクローンしてきます。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes</span><br><span class="line">git <span class="built_in">clone</span> git@github.com:&lt;theme-auther&gt;/&lt;theme-name&gt;.git</span><br></pre></td></tr></table></figure>
 <p>次に先ほどの<code>_config.yml</code>を書き換えます。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># Extensions&#10;theme: &#60;theme-name&#62;</span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="attr">theme:</span> &lt;theme-name<span class="string">&gt;</span></span><br></pre></td></tr></table></figure>
 <p>これでテーマが適応されました、<code>hexo server</code>して実際に見てみてください。<br>テーマの細かい設定はそれぞれのテーマの<code>themes/&lt;theme-name&gt;/_config.yml</code>を変更することで可能です。<br>ある程度気にいる形になったらデプロイして公開しましょう!</p>
 <p>テーマやスタイルシートを変更した後にデプロイしてもデザインが変更されないことがあると思いますが、これは下のコマンドで解決することができます。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
