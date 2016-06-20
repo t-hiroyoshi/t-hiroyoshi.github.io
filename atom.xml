@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://t-hiroyoshi.github.io/"/>
-  <updated>2016-04-18T13:20:13.000Z</updated>
+  <updated>2016-06-20T09:07:39.000Z</updated>
   <id>http://t-hiroyoshi.github.io/</id>
   
   <author>
@@ -14,6 +14,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker Machineでbashを使えるようにする</title>
+    <link href="http://t-hiroyoshi.github.io/docker-machine-bash/"/>
+    <id>http://t-hiroyoshi.github.io/docker-machine-bash/</id>
+    <published>2016-06-19T14:22:43.000Z</published>
+    <updated>2016-06-20T09:07:39.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Docker Machineめっちゃ便利ですがBoot2Docker上で作業をしている時、コンテナをShell Scriptで管理していて困ったことありませんか?&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;docker@dev:/Users/t-hiroyoshi/git/some-project/docker$ ./manage.sh build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;env: can&amp;apos;t execute &amp;apos;bash&amp;apos;: No such file or directory&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;bashがBoot2Dockerに入ってない!これは困る!ということでBoot2Dockerにbashを入れる方法です。&lt;br&gt;Boot2Dockerは&lt;a href=&quot;http://tinycorelinux.net&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Tiny Core Linux&lt;/a&gt;ベースで動いているのでそのパッケージ管理システム(&lt;a href=&quot;http://wiki.tinycorelinux.net/wiki:tce-load&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;tce-load&lt;/a&gt;)を利用してあげれば万事解決です。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;docker@dev:/Users/t-hiroyoshi/git/some-project/docker$ tce-load -wi bash&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;これでbashが使えるようになったのでbash Shell Scriptが使えます。&lt;br&gt;Docker Machine(Boot2Docker)上に状態を持つのはあまり良くない気がしますがまあbashぐらいはあってもいいのではと思いました。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Docker Machineめっちゃ便利ですがBoot2Docker上で作業をしている時、コンテナをShell Scriptで管理していて困ったことありませんか?&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td clas
+    
+    </summary>
+    
+    
+      <category term="docker" scheme="http://t-hiroyoshi.github.io/tags/docker/"/>
+    
+      <category term="shell" scheme="http://t-hiroyoshi.github.io/tags/shell/"/>
+    
+  </entry>
   
   <entry>
     <title>Akka-HTTP vs Spray</title>
@@ -46,13 +74,13 @@
     </summary>
     
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
     
       <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+    
+      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
     
       <category term="benchmark" scheme="http://t-hiroyoshi.github.io/tags/benchmark/"/>
     
@@ -97,13 +125,13 @@
     </summary>
     
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
     
       <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+    
+      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
     
   </entry>
   
@@ -135,17 +163,17 @@
     </summary>
     
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
-    
-      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
     
       <category term="adtech" scheme="http://t-hiroyoshi.github.io/tags/adtech/"/>
     
       <category term="aws" scheme="http://t-hiroyoshi.github.io/tags/aws/"/>
     
+      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
+    
       <category term="hackathon" scheme="http://t-hiroyoshi.github.io/tags/hackathon/"/>
+    
+      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
     
   </entry>
   
@@ -190,9 +218,9 @@
     </summary>
     
     
-      <category term="reactjs" scheme="http://t-hiroyoshi.github.io/tags/reactjs/"/>
-    
       <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
+    
+      <category term="reactjs" scheme="http://t-hiroyoshi.github.io/tags/reactjs/"/>
     
       <category term="client" scheme="http://t-hiroyoshi.github.io/tags/client/"/>
     
@@ -247,11 +275,11 @@
     </summary>
     
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
-    
       <category term="hexo" scheme="http://t-hiroyoshi.github.io/tags/hexo/"/>
     
       <category term="github" scheme="http://t-hiroyoshi.github.io/tags/github/"/>
+    
+      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
     
   </entry>
   

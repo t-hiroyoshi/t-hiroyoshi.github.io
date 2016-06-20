@@ -101,7 +101,8 @@
     </ul>
   
 </nav>
- </div>
+
+      </div>
     </header>
     <main id="main" class="main">
       <div class="main-inner">
@@ -110,8 +111,6 @@
   <section id="posts" class="posts-expand">
     
     
-    
-      
       
         
         
@@ -119,6 +118,93 @@
       
       
     
+    
+      
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/docker-machine-bash/" itemprop="url">
+                  Docker Machineでbashを使えるようにする
+                </a>
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-06-19T23:22:43+09:00" content="2016-06-19">
+              2016-06-19
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/docker/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#docker</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/shell/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#shell</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        
+          <span itemprop="articleBody">
+            <p>Docker Machineめっちゃ便利ですがBoot2Docker上で作業をしている時、コンテナをShell Scriptで管理していて困ったことありませんか?</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker@dev:/Users/t-hiroyoshi/git/some-project/docker$ ./manage.sh build</span><br><span class="line">env: can&apos;t execute &apos;bash&apos;: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>bashがBoot2Dockerに入ってない!これは困る!ということでBoot2Dockerにbashを入れる方法です。<br>Boot2Dockerは<a href="http://tinycorelinux.net" target="_blank" rel="external">Tiny Core Linux</a>ベースで動いているのでそのパッケージ管理システム(<a href="http://wiki.tinycorelinux.net/wiki:tce-load" target="_blank" rel="external">tce-load</a>)を利用してあげれば万事解決です。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker@dev:/Users/t-hiroyoshi/git/some-project/docker$ tce-load -wi bash</span><br></pre></td></tr></table></figure>
+<p>これでbashが使えるようになったのでbash Shell Scriptが使えます。<br>Docker Machine(Boot2Docker)上に状態を持つのはあまり良くない気がしますがまあbashぐらいはあってもいいのではと思いました。</p>
+
+          </span>
+        
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Docker Machineでbashを使えるようにする" data-url="http://t-hiroyoshi.github.io/docker-machine-bash/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
     
       
   
@@ -155,16 +241,6 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/scala/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#scala</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/akka/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#akka</span>
                     </a>
@@ -175,8 +251,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/spray/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#spray</span>
+                    <a href="/tags/scala/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala</span>
                     </a>
                 </span>
                 
@@ -187,6 +263,16 @@
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/server/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#server</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/spray/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#spray</span>
                     </a>
                 </span>
                 
@@ -282,16 +368,6 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/scala/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#scala</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/akka/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#akka</span>
                     </a>
@@ -302,8 +378,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/spray/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#spray</span>
+                    <a href="/tags/scala/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala</span>
                     </a>
                 </span>
                 
@@ -314,6 +390,16 @@
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/server/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#server</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/spray/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#spray</span>
                     </a>
                 </span>
                 
@@ -407,28 +493,8 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/scala/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#scala</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/akka/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#akka</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/server/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#server</span>
                     </a>
                 </span>
                 
@@ -457,8 +523,28 @@
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/scala/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/hackathon/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#hackathon</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/server/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#server</span>
                     </a>
                 </span>
                 
@@ -540,8 +626,8 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/reactjs/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#reactjs</span>
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
                     </a>
                 </span>
                 
@@ -550,8 +636,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
+                    <a href="/tags/reactjs/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#reactjs</span>
                     </a>
                 </span>
                 
@@ -622,131 +708,12 @@
   </article>
 
     
-      
-  
-  
-  
-  
-  
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    
-      <header class="post-header">
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/start-hexo/" itemprop="url">
-                  Hexoを使って無料でブログを公開する
-                </a>
-              
-            
-          </h1>
-        
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2015-11-19T22:14:39+09:00" content="2015-11-19">
-              2015-11-19
-            </time>
-          </span>
-          
-            <span class="post-tag" >
-              &nbsp; | &nbsp; Tag
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/hexo/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#hexo</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/github/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#github</span>
-                    </a>
-                </span>
-                
-                
-              
-            </span>
-          
-        </div>
-      </header>
-    
-    <div class="post-body">
-      
-      
-      
-        
-          <span itemprop="articleBody">
-            <h1 id="なぜHexoなのか"><a href="#なぜHexoなのか" class="headerlink" title="なぜHexoなのか"></a>なぜHexoなのか</h1><ul>
-<li>Node.jsでやれる</li>
-<li>めっちゃ簡単に静的サイトを構築できる</li>
-<li>テーマが多くて完成度が高い、さらにカスタムできる</li>
-<li>Markdownで記事が書けるので嬉しいよ!<br><br></li>
-</ul>
-<h1 id="Hexoを使ってブログを公開するまでの手順"><a href="#Hexoを使ってブログを公開するまでの手順" class="headerlink" title="Hexoを使ってブログを公開するまでの手順"></a>Hexoを使ってブログを公開するまでの手順</h1><h2 id="Hexoをインストールする"><a href="#Hexoをインストールする" class="headerlink" title="Hexoをインストールする"></a>Hexoをインストールする</h2><p>まずはnpmでHexoをインストールします。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
-<p>次にブログの雛形を作成して依存パッケージをインストールします。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo init &lt;your-blog-name&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;your-blog-name&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>ここまでくれば実際にページを見ることが可能です、<code>hexo server</code>と打った後<a href="http://localhost:4000" target="_blank" rel="external">localhost:4000</a>にアクセスしてみてください。デフォルトのテーマなので好みはあると思いますが、テーマは後で変えられるので安心してください!</p>
-<h2 id="Github-Pagesでブログを公開する"><a href="#Github-Pagesでブログを公開する" class="headerlink" title="Github Pagesでブログを公開する"></a>Github Pagesでブログを公開する</h2><p>ブログをGitHub Pagesを利用して公開してみようと思います、まずは<code>&lt;user-name&gt;.github.io</code>という名前のレポジトリを作成します。<br>デプロイはGitで行いたいと思うのでプラグインをインストールします。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>次にレポジトリの登録を行います、先ほど作成した雛形の中にある<code>_config.yml</code>を下記のように編集してください。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> git</span><br><span class="line"><span class="attr">  repo:</span> git@github.com:&lt;user-name&gt;/&lt;user-name&gt;.github.io.git</span><br><span class="line"><span class="attr">  branch:</span> master</span><br></pre></td></tr></table></figure>
-<p>これでブログを公開する準備は完了です、デプロイしてみましょう。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo deploy -g</span><br></pre></td></tr></table></figure>
-<p>無事にデプロイできたら<code>http://&lt;user-name&gt;.github.io</code>にアクセスしてみてください、ブログが表示されれば成功です!</p>
-<h2 id="記事の追加をする"><a href="#記事の追加をする" class="headerlink" title="記事の追加をする"></a>記事の追加をする</h2><p>記事の追加は下記のコマンドを打つことで可能です、タイトルがそのままファイル名になるので日本語などは避けたほうが良いです。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">"page-title"</span></span><br></pre></td></tr></table></figure>
-<p>そうすると<code>source/_posts</code>の中に<code>page-title.md</code>ができていると思います、Markdownでゴリゴリ中身を書きましょう。<code>hexo server</code>でサーバーを動かしながら書くとブラウザをリロードするたびに更新されていくのでプレビュー代わりに使えます。<br>記事を書き終えたら公開して、Github Pagesにアクセスして実際に見てみてください。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo deploy -g</span><br></pre></td></tr></table></figure>
-<h2 id="テーマをインストールする"><a href="#テーマをインストールする" class="headerlink" title="テーマをインストールする"></a>テーマをインストールする</h2><p>まずはGithubなどで導入したいテーマを見つけてきてください、多分<code>hexo theme</code>とかで検索するとたくさん出てくると思います。細かい部分は自分で変更できるのでだいたい雰囲気で選んで良いと思います。良い感じのテーマが見つかったらクローンしてきます。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes</span><br><span class="line">git <span class="built_in">clone</span> git@github.com:&lt;theme-auther&gt;/&lt;theme-name&gt;.git</span><br></pre></td></tr></table></figure>
-<p>次に先ほどの<code>_config.yml</code>を書き換えます。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="attr">theme:</span> &lt;theme-name<span class="string">&gt;</span></span><br></pre></td></tr></table></figure>
-<p>これでテーマが適応されました、<code>hexo server</code>して実際に見てみてください。<br>テーマの細かい設定はそれぞれのテーマの<code>themes/&lt;theme-name&gt;/_config.yml</code>を変更することで可能です。<br>ある程度気にいる形になったらデプロイして公開しましょう!</p>
-<p>テーマやスタイルシートを変更した後にデプロイしてもデザインが変更されないことがあると思いますが、これは下のコマンドで解決することができます。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
-<p>この後に再びデプロイしてみてください、テーマやデザインシートの変更が反映されていると思います!</p>
-<h1 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h1><p>Hexoを使ってブログを公開する方法を書きました。<br>Hexoは静的サイトの構築が本当に簡単にできる素晴らしいツールだと思います、テーマも非常に完成度が高いものが多いので一瞬にしてそれなりにちゃんとしたブログが作れてしまうのは本当に驚きです。<br>ただHexoを使っていてひとつ辛いのは中国圏のユーザーが多いので英語ではなく中国語のドキュメント、ディスカッションが多いという点です、英語ならそれなりに読めますが中国語は辛い…</p>
-
-          </span>
-        
-      
-    </div>
-    <footer class="post-footer">
-      <div class="twitter-share-button-wrap">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Hexoを使って無料でブログを公開する" data-url="http://t-hiroyoshi.github.io/start-hexo/" data-via="t_hiroyoshi">Twitter</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      </div>
-      
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-    
   </section>
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
         </div>
@@ -774,7 +741,6 @@
   
   
   
-    
   <script type="text/javascript">
     var disqus_shortname = 't-hiroyoshi';
     var disqus_identifier = 'index.html';
