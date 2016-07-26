@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://t-hiroyoshi.github.io/"/>
-  <updated>2016-06-20T09:07:39.000Z</updated>
+  <updated>2016-07-26T06:17:05.000Z</updated>
   <id>http://t-hiroyoshi.github.io/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Scala NativeのデモをDocker上で動かす</title>
+    <link href="http://t-hiroyoshi.github.io/scala-native-demo-docker/"/>
+    <id>http://t-hiroyoshi.github.io/scala-native-demo-docker/</id>
+    <published>2016-07-14T04:23:02.000Z</published>
+    <updated>2016-07-26T06:17:05.000Z</updated>
+    
+    <content type="html">&lt;p&gt;こんにちは、t-hiroyoshiです。&lt;br&gt;最近は&lt;a href=&quot;http://event.scaladays.org/scaladays-nyc-2016&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Scala Days 2016 NYC&lt;/a&gt;で発表された&lt;a href=&quot;https://github.com/scala-native/scala-native&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Scala Native&lt;/a&gt;にコントリビュートしています。Scalaのような強力な言語がbare metalで動くのは素晴らしい事だと思っているので早く実用レベルで動くようにこれからも積極的に貢献していきたいです。&lt;/p&gt;
+&lt;p&gt;そんな訳で今回は布教を兼ねてScala NativeのデモをDocker上で簡単に動かす方法を紹介したいと思います。&lt;/p&gt;
+&lt;h1 id=&quot;Scala-Native&quot;&gt;&lt;a href=&quot;#Scala-Native&quot; class=&quot;headerlink&quot; title=&quot;Scala Native&quot;&gt;&lt;/a&gt;Scala Native&lt;/h1&gt;&lt;p&gt;Scala Nativeとは何かと言うと、ScalaのコードをLLVMのIR経由でコンパイルしてNative実行可能にするAOTコンパイラ(AheadOfTimeCompiler)実装です。&lt;br&gt;一部低級な処理向けにScalaを拡張しているのである意味別言語と言っても過言ではないかもしれません。&lt;br&gt;これらの拡張によってScalaをSystem level languageに落とし込めるのでその気になればScalaで何でも作れるわけで、とても未来が楽しみです。&lt;/p&gt;
+&lt;p&gt;ただREADMEに&lt;code&gt;pre-release stage&lt;/code&gt;とあるようにまだ完全にScala-likeには動きません、ですが活発にIssueやPull reqが飛んでいるので近いうちにまともに動くようになると思っています。(まだ完成していない今ならコントリビュートのチャンス?)&lt;/p&gt;
+&lt;p&gt;現在はLLVM(Clang)とBOEHM GCをローカル環境に依存しているのでデモを動かすまでにそれらのパスが通らなかったり、依存解決で結構躓く人が多いみたいです。&lt;br&gt;そこでScala Nativeのレポジトリ内にあるDockerfileを使って作ったコンテナ内でデモを動かしてみたいと思います。管理用のスクリプトもきちんとあるので比較的簡単に動かす事が可能です。&lt;/p&gt;
+&lt;h1 id=&quot;手順&quot;&gt;&lt;a href=&quot;#手順&quot; class=&quot;headerlink&quot; title=&quot;手順&quot;&gt;&lt;/a&gt;手順&lt;/h1&gt;&lt;h2 id=&quot;docker-machineを立てる-Option&quot;&gt;&lt;a href=&quot;#docker-machineを立てる-Option&quot; class=&quot;headerlink&quot; title=&quot;docker-machineを立てる(Option)&quot;&gt;&lt;/a&gt;docker-machineを立てる(Option)&lt;/h2&gt;&lt;p&gt;なるべくローカルの環境を汚染したくないのでdocker-machineでDockerホストを立てます。&lt;br&gt;driverは&lt;code&gt;virtualbox&lt;/code&gt;を使っていますが&lt;code&gt;vmwarefusion&lt;/code&gt;で立てた方がもしかしたら&lt;a href=&quot;http://qiita.com/suin/items/c4ba1cfd354586bbed59&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;速い&lt;/a&gt;かもです(Scalaはcompile時間が長いと言われている)。&lt;br&gt;メモリを指定しないと1Gしか割り当てられないので増やしておきます。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ docker-machine create -d virtualbox --virtualbox-memory 2048 scalanative&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;docker-machineが立ち上がったらsshで繋ぎます。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ docker-machine ssh scala-native&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;管理用のスクリプトはbashで動くのですが、Boot2Dockerは標準でbashが入っていないので次に進む前に&lt;a href=&quot;https://t-hiroyoshi.github.io/docker-machine-bash/&quot;&gt;ここ&lt;/a&gt;を参考にbashをインストールしてください。&lt;/p&gt;
+&lt;h2 id=&quot;Scala-Nativeのコンテナイメージをビルドする&quot;&gt;&lt;a href=&quot;#Scala-Nativeのコンテナイメージをビルドする&quot; class=&quot;headerlink&quot; title=&quot;Scala Nativeのコンテナイメージをビルドする&quot;&gt;&lt;/a&gt;Scala Nativeのコンテナイメージをビルドする&lt;/h2&gt;&lt;p&gt;まずはともかくScala Nativeのソースをcloneしてきます。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git clone https://github.com/scala-native/scala-native.git&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;scala-native/docker&lt;/code&gt;の中にDockerfileがあるので移動して管理用のスクリプトを叩きます。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ cd scala-native/docker&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ./manage.sh build&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;色々ダウンロードしたりするので結構時間がかかります。&lt;/p&gt;
+&lt;p&gt;時間がかかります辛抱強く待って下さい、コーヒーでも飲んでいれば良いと思います。&lt;br&gt;ビルドが終わったらいよいよデモを動かします。&lt;/p&gt;
+&lt;h2 id=&quot;Scala-Nativeのデモを実行する&quot;&gt;&lt;a href=&quot;#Scala-Nativeのデモを実行する&quot; class=&quot;headerlink&quot; title=&quot;Scala Nativeのデモを実行する&quot;&gt;&lt;/a&gt;Scala Nativeのデモを実行する&lt;/h2&gt;&lt;p&gt;スクリプトを叩いてビルドしたコンテナの中に入ります。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ./manage.sh run&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;ここでエラーが出てsbtプロジェクトが読み込まれない方は&lt;code&gt;scala-native/&lt;/code&gt;配下のtargetフォルダを全て削除してみてください。&lt;br&gt;コンテナに入れたらsbtを起動してデモがあるdemoNativeプロジェクトを指定します。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sbt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; project demoNative&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt; run&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;後は&lt;code&gt;run&lt;/code&gt;すればデモが動き出してコンパイルされたバイナリが&lt;code&gt;scala-native/demo/native/target/scala-2.11/demonative-out&lt;/code&gt;に吐き出されているはずです。&lt;/p&gt;
+&lt;p&gt;これはそのまま実行できるのでいろいろ試してみてください。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;こんにちは、t-hiroyoshiです。&lt;br&gt;最近は&lt;a href=&quot;http://event.scaladays.org/scaladays-nyc-2016&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Scala Days 2016 NYC&lt;/a&gt;
+    
+    </summary>
+    
+    
+      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
+    
+      <category term="docker" scheme="http://t-hiroyoshi.github.io/tags/docker/"/>
+    
+      <category term="scala-native" scheme="http://t-hiroyoshi.github.io/tags/scala-native/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker Machineでbashを使えるようにする</title>
@@ -218,9 +264,9 @@
     </summary>
     
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
-    
       <category term="reactjs" scheme="http://t-hiroyoshi.github.io/tags/reactjs/"/>
+    
+      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
     
       <category term="client" scheme="http://t-hiroyoshi.github.io/tags/client/"/>
     
@@ -275,11 +321,11 @@
     </summary>
     
     
+      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
+    
       <category term="hexo" scheme="http://t-hiroyoshi.github.io/tags/hexo/"/>
     
       <category term="github" scheme="http://t-hiroyoshi.github.io/tags/github/"/>
-    
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
     
   </entry>
   

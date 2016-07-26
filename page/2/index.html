@@ -131,6 +131,123 @@
             
               
                 
+                <a class="post-title-link" href="/react-drag-drop/" itemprop="url">
+                  ReactでDrag&Drop
+                </a>
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-12-14T22:00:00+09:00" content="2015-12-14">
+              2015-12-14
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/reactjs/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#reactjs</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/client/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#client</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        
+          <span itemprop="articleBody">
+            <h1 id="ReactDnDについて"><a href="#ReactDnDについて" class="headerlink" title="ReactDnDについて"></a>ReactDnDについて</h1><p>Reactでdrag&amp;dropコンポーネントを実装するのにおそらく一番有名(Redux作った人が作った)かつドキュメントが豊富なパッケージです。<a href="http://gaearon.github.io/react-dnd/" target="_blank" rel="external">ドキュメント</a>の情報量が結構多く自由度が高くて混乱しやすいので軽く使ってみたい人向けに核となるところだけ解説します。Danさん本当好き。</p>
+<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>各コンポーネントをdrggable&amp;droppable化するためのAPIがES7のdecoratorとして提供されています。<br>babel6使っている人はdecoratorがまだ公式では対応していないみたいなので注意してください(babel5なら大丈夫です)。公式じゃなければbabel6用のプラグイン作っている人がいたと思うので探してみてください。</p>
+<h2 id="DragSource"><a href="#DragSource" class="headerlink" title="DragSource"></a>DragSource</h2><p>ドラッグされるコンポーネントについての設定を行える。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; DragSource &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</span><br><span class="line"></span><br><span class="line">@DragSouce(type, spec, collect)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DragComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>type</code>: dorpされる側はここで設定した<code>type</code>を見てdropを受け入れるか否かを決める、SymbolかString。</p>
+<p><code>spec</code>: drag開始時の処理、drag終了時(dropされた時)の処理とかを書いたObject。例が後半にあります。</p>
+<p><code>collect</code>: <code>DragComponent</code>内で使う関数を取り出す関数でobjectを返す必要があります。connectとmonitorが引数として渡されます。ざっくり言うとconnectはDOMについて、monitorはdrag&amp;dropの状態についてのObjectです、結構色々取れるので公式ドキュメント見てみてください。</p>
+<h2 id="DropTarget"><a href="#DropTarget" class="headerlink" title="DropTarget"></a>DropTarget</h2><p>ドロップされるコンポーネントについての設定を行える。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; DropTarget &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</span><br><span class="line"></span><br><span class="line">@DropTarget(types, spec, collect)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DropComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>types</code>: dropを受け入れる<code>type</code>を設定する、SymbolかStringかArray。</p>
+<p><code>spec</code>: dropを受け入れた時の処理やhoverされている時の処理を書いたObject。例が後半にあります。</p>
+<p><code>collect</code>: DragSourceの<code>collect</code>と同じ</p>
+<h2 id="DragDropContext"><a href="#DragDropContext" class="headerlink" title="DragDropContext"></a>DragDropContext</h2><p>上記のコンポーネント達をこいつでラップすることで初めてdrag&amp;dropができるようになる。Backendが必要。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> HTML5Backend <span class="keyword">from</span> <span class="string">"react-dnd-html5-backend"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; DragDropContext &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</span><br><span class="line"></span><br><span class="line">@DragDropContext(HTML5Backend)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DnDComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// something</span></span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="comment">// DragComponent &amp; DropComponent</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例では<code>HTML5Backend</code>を使っているのでタッチには対応していません。タッチ対応のBackendもあるのでタッチ対応させたい人は探してみてください。</p>
+<h1 id="実装例"><a href="#実装例" class="headerlink" title="実装例"></a>実装例</h1><p>drag&amp;dropするとメッセージを表示するコンポーネントを作ってみます。</p>
+<h2 id="DnDItem-Componentを作る"><a href="#DnDItem-Componentを作る" class="headerlink" title="DnDItem Componentを作る"></a>DnDItem Componentを作る</h2><p>実際にdrag&amp;dropされるコンポーネントを作ります。<br>DragSourceとDropTargetは同時に使うことでdragもdropもできるコンポーネントを作ることが可能です。</p>
+<p>drag&amp;dropされたときのactionは親からpropsとして受け取ります。<br>またtypeも同様に親からpropsとして受け取っています。</p>
+<p>DragSourceとDropTarget間は基本的にmonitorを通して値のやり取りをします。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; DragSource, DropTarget &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dragSpec = &#123;</span><br><span class="line">  <span class="comment">// dragが始まったときの処理</span></span><br><span class="line">  beginDrag(props) &#123;</span><br><span class="line">    <span class="comment">// dragされ始めたら自分のidを返す</span></span><br><span class="line">    <span class="keyword">const</span> &#123; id &#125; = props;</span><br><span class="line">    <span class="keyword">return</span> &#123; id &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// dragが終わったときの処置</span></span><br><span class="line">  endDrag(props, monitor) &#123;</span><br><span class="line">    <span class="comment">// beginDragで返されたidを取ってくる</span></span><br><span class="line">    <span class="keyword">const</span> source = monitor.getItem();</span><br><span class="line">    <span class="comment">// dropSpecのdropで返されたidを取ってくる</span></span><br><span class="line">    <span class="keyword">const</span> target = monitor.getDropResult();</span><br><span class="line">    <span class="comment">// dropActionを発火させる</span></span><br><span class="line">    <span class="keyword">if</span> (target) props.dropAction(source.id, target.id);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dropSpec = &#123;</span><br><span class="line">  <span class="comment">// dropされたときの処理</span></span><br><span class="line">  drop(props, monitor, component) &#123;</span><br><span class="line">    <span class="comment">// dropされたら自分のidを返す</span></span><br><span class="line">    <span class="keyword">const</span> &#123; id &#125; = props;</span><br><span class="line">    <span class="keyword">return</span> &#123; id &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DropTargetとDragSourceを使っているのでdragもdropもできる</span></span><br><span class="line">@DropTarget(props =&gt; props.type, dropSpec, connect =&gt; (&#123; connectDropTarget: connect.dropTarget() &#125;))</span><br><span class="line">@DragSource(props =&gt; props.type, dragSpec, connect =&gt; (&#123; connectDragSource: connect.dragSource() &#125;))</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DnDItem</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> propTypes = &#123;</span><br><span class="line">    connectDragSource: React.PropTypes.func.isRequired,</span><br><span class="line">    connectDropTarget: React.PropTypes.func.isRequired,</span><br><span class="line">    dropAction: React.PropTypes.func.isRequired,</span><br><span class="line">    id: React.PropTypes.string.isRequired,</span><br><span class="line">    name: React.PropTypes.string.isRequired</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      connectDragSource,</span><br><span class="line">      connectDropTarget,</span><br><span class="line">      name</span><br><span class="line">    &#125; = <span class="keyword">this</span>.props;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> connectDragSource(connectDropTarget(</span><br><span class="line">      &lt;li&gt;</span><br><span class="line">        &lt;h3&gt;&#123;name&#125;&lt;/h3&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">    ));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="DnDField-Componentを作る"><a href="#DnDField-Componentを作る" class="headerlink" title="DnDField Componentを作る"></a>DnDField Componentを作る</h2><p>DnDItem Componentをラップする親玉を作ります、stateはこのコンポーネントで管理して更新用のactionをDnDItemに渡します。</p>
+<p>今回はidをkeyとして渡しています、keyはReactDnD内部でのDOMの参照に使われるのでValueObjectである必要があります。あまりにも適当なものを渡すと壊れるので気をつけてください(React始めたばっかりの時Math.random()とか渡してて死にそうになった)。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> HTML5Backend <span class="keyword">from</span> <span class="string">"react-dnd-html5-backend"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; DragDropContext &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> DnDItem <span class="keyword">from</span> <span class="string">"./DnDItem"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DragDropContextでラップする</span></span><br><span class="line">@DragDropContext(HTML5Backend)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DnDField</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      list: [</span><br><span class="line">        &#123;id: <span class="string">"1"</span>, name: <span class="string">"foo"</span>&#125;,</span><br><span class="line">        &#123;id: <span class="string">"2"</span>, name: <span class="string">"bar"</span>&#125;,</span><br><span class="line">        &#123;id: <span class="string">"3"</span>, name: <span class="string">"bad"</span>&#125;,</span><br><span class="line">        &#123;id: <span class="string">"4"</span>, name: <span class="string">"qux"</span>&#125;</span><br><span class="line">      ],</span><br><span class="line">      message: <span class="string">""</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  dropAction(sourceId, targetId) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; list &#125; = <span class="keyword">this</span>.state;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// message更新 Redux使うならここでaction, それぞれのidが渡ってくる</span></span><br><span class="line">    <span class="keyword">const</span> sourceName = list.find(item =&gt; item.id === sourceId).name;</span><br><span class="line">    <span class="keyword">const</span> targetName = list.find(item =&gt; item.id === targetId).name;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;message: <span class="string">`<span class="subst">$&#123;sourceName&#125;</span> dropped on <span class="subst">$&#123;targetName&#125;</span>`</span>&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render()</span><br><span class="line">    <span class="keyword">const</span> &#123; list, message &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="keyword">const</span> itemType = <span class="built_in">Symbol</span>(<span class="string">"item"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;&#123;message&#125;&lt;/h1&gt;</span><br><span class="line">        &lt;ol&gt;</span><br><span class="line">          &#123;list.map(item =&gt;</span><br><span class="line">            &lt;DnDItem id=&#123;item.id&#125; name=&#123;item.name&#125; type=&#123;itemType&#125; dropAction=&#123;::this.dropAction&#125; key=&#123;item.id&#125;/&gt;</span><br><span class="line">          )&#125;</span><br><span class="line">        &lt;/ol&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>これでdragされたComponentのidとdropされたComponentのidが取得できる実装が出来ました。idが取得できればあとはどうにでもできるので実際の開発に生かすことができればと思います。</p>
+<p>今回紹介したのはReactDnDのほんの一部で他にもたくさんのオプションがあるので是非ドキュメントを読んでカスタムしてみてください。</p>
+
+          </span>
+        
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="ReactでDrag&Drop" data-url="http://t-hiroyoshi.github.io/react-drag-drop/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+    
+      
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/start-hexo/" itemprop="url">
                   Hexoを使って無料でブログを公開する
                 </a>
@@ -150,6 +267,16 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/hexo/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#hexo</span>
                     </a>
@@ -162,16 +289,6 @@
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/github/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#github</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
                     </a>
                 </span>
                 
