@@ -131,6 +131,139 @@
             
               
                 
+                <a class="post-title-link" href="/adtech-compe/" itemprop="url">
+                  CyberAgentさんのアドテクコンペで特別賞頂いた話
+                </a>
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-03-02T01:22:05+09:00" content="2016-03-02">
+              2016-03-02
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/akka/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#akka</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/adtech/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#adtech</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/aws/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#aws</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/scala/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/hackathon/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#hackathon</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/server/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#server</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        
+          <span itemprop="articleBody">
+            <p>こんにちは、t-hiroyoshiです。<br>ハッカソンデビュー！ということでCyberAgentさん主催のアドテクコンペに参加してきた話です。</p>
+<p>今回のテーマはアドテクで広告入札の部分に関わるDSP(Demand-Side Platform)を作るというものでした。<br>DSPとは飛んでくる入札のリクエストに対しいくらでどんな広告を出したいかを返すものです、なので求められるものとしては高トラフィック(今回は2000QPS)をさばきつつ配信する広告を選び適切な価格で入札できるものといった感じです。さらにDSPには応答速度も問われ今回は100ms以内にレスポンスが返せないものは無効になるという設定でした。最終的な評価はCPC(クリックあたりのコスト)と予算の消化率で行われました。</p>
+<p>参加した理由ですがそろそろプログラミングやり始めて1年だしハッカソン的なのに出てみたいなって思っていた時にScalaMatsuri2016で見かけたCyberAgentさんのホームページ見てみてみたら学生向けのハッカソンの参加者を募集していて、何か面白そうだし応募してみたところ参加権を貰えたというのが理由です。</p>
+<h1 id="作ったもの-作ろうとしたもの"><a href="#作ったもの-作ろうとしたもの" class="headerlink" title="作ったもの(作ろうとしたもの)"></a>作ったもの(作ろうとしたもの)</h1><p>僕のチームはエンジニアの自分とデータサイエンティストのSou Konishi, Kouichi Takayamaの3人チームでした。お互いの強みを生かしつつなるべく依存し合わないような設計をしようと以下のようなアーキテクチャにしました。</p>
+<p><img src="/img/adtechArchitecture.png" alt="architecture" title="architecture"></p>
+<p>最初はAWSに依存しすぎるのが嫌だったのでKinesisではなくKafka Cluster使いたかったのですが、時間的に厳しいと判断して大人しくKinesis使いました。またConsumer側はマイクロサービス群なので拡張性があり、新たな機能を追加しやすいかなとか考えました。<br>イメージとしてはScalaをマイクロサービスプラットフォーム的な立ち位置で置いてスケールさせたかった感じです。<br>Producer~Consumer間で評価モデルの受け渡しをどうするのか迷っていましたが、Kinesisを使うことにしたのでAWSどっぷりで良いやってなってめっちゃ早と噂のMemcachedをElastiCache上で使うことにしました。Memcached使ったことなかったのでどういう感じに使えば良いか分からずConsumer側(Python)でセットすると余計なヘッダが付いてくるとかに悩まされScalaのパーサー書くのが辛かったです。<br>評価モデルの生成はデータサイエンティストの2人がKinesisの強みを生かしたオンライン学習ベースで随時最新のモデルをExportできるようにしてくれました。僕はデータサイエンティストの2人がJupyter使ってデータこねくり回しているのを見てはーすっげってなってました。<br>AkkaにはKamonが仕込んであって、Actorの最適化や監視に使う予定でしたが時間切れで仕込んだだけになってしまいました。</p>
+<p>最終的に骨組みを作りきりProducer側も上手く分散化ができたのですが、評価モデルの読み込みフォーマットと評価モデルの展開式をミスって計算が爆発してメッセージ消化しきれなくてActor死にまくるみたいになってまともに動きませんでした、Kamon生かせなかった…<br>完全にエンジニアリソースが足りておらず作り込み不足でした、ごめんなさい。</p>
+<p>開発後にチームでプレゼンをする機会があったのですが、徹夜開発に加え本番でまともに動かなかった絶望感から頭おかしい感じのプレゼンになっていたと思います(笑)。<br>ですが、嬉しいことに技術選定や設計、オンライン学習などを評価して頂きなんと<strong>特別賞</strong>を頂くことができました。</p>
+<h1 id="感想と反省"><a href="#感想と反省" class="headerlink" title="感想と反省"></a>感想と反省</h1><p>今回はCyberAgentさん主催だったのでレッドブルを出してくれたりお菓子食べ放題だったりピザが食べられたり美味しいコーヒーを準備してくれたり環境としては至れり尽くせりで開発に集中することができました、感謝です。</p>
+<p>チームメイトとの絆も(徹夜の)開発を通して生まれてとても濃いハッカソンになりました。<br>今回は開発時間的に忙しすぎてメンターの方々とあまり交流できなかったので少し残念でしたが、Kinesisの情報を頂いたりできたので良かったです。<br>KinesisやMemcachedといった技術は使ったことがなかったものなのでこの機会に使えることができて良かったですが、初ハッカソンということで張り切りすぎて技術選定を大きくしすぎた感があってエンジニアリソースが足りず最後まで作り込めませんでした。今回参加してみて実際のリソース感を体感できたので次回に生かしたいと思います。ハッカソンに限ってはベンダロックインを許容してどっぷり浸かった方が他に集中できて楽とか色々なことを学びました。</p>
+<p>まとめると初ハッカソンは本番で動かないという絶望的な結果に終わりましたが、特別賞を貰えたので救われました。ハッカソン的な短期集中開発は自分の性格的にかなり楽しめたのでこれからもハッカソンに積極的に参加していきたいです。</p>
+
+          </span>
+        
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="CyberAgentさんのアドテクコンペで特別賞頂いた話" data-url="http://t-hiroyoshi.github.io/adtech-compe/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+    
+      
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/react-drag-drop/" itemprop="url">
                   ReactでDrag&Drop
                 </a>

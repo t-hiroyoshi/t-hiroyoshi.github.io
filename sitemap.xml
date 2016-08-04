@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/</loc>
+    
+    <lastmod>2016-08-04T07:54:25.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://t-hiroyoshi.github.io/spray-akka-benchmark/</loc>
+    
+    <lastmod>2016-08-04T07:25:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://t-hiroyoshi.github.io/scala-native-demo-docker/</loc>
     
     <lastmod>2016-07-26T06:17:05.000Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://t-hiroyoshi.github.io/docker-machine-bash/</loc>
     
     <lastmod>2016-06-20T09:07:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://t-hiroyoshi.github.io/spray-akka-benchmark/</loc>
-    
-    <lastmod>2016-04-18T13:20:13.000Z</lastmod>
     
   </url>
   

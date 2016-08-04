@@ -1,0 +1,306 @@
+<!doctype html>
+<html class="use-motion">
+<head>
+  <title>Akka HTTP is faster than Spray now | t-hiroyoshi-blog</title>
+  <meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css' async>
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" async/>
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" async/>
+
+<meta name="keywords" content="akka, scala, spray, http, benchmark" />
+
+
+
+<link rel="alternate" href="/atom.xml" title="t-hiroyoshi-blog" type="application/atom+xml" />
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+<meta name="description" content="こんにちは、t-hiroyoshiです。
+先日Akka 2.4.9-RC1がリリースされました。今回のリリースはAkka HTTPのパフォーマンス改善に焦点を絞ったアップデートでAkka HTTPのパフォーマンスがSprayと同等かそれ以上になったと書かれています。
+Akka HTTP revenge以前Akka HTTPとSpray-canのベンチマークを取った時はSprayに軍配が上がりました">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Akka HTTP is faster than Spray now">
+<meta property="og:url" content="http://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/index.html">
+<meta property="og:site_name" content="t-hiroyoshi-blog">
+<meta property="og:description" content="こんにちは、t-hiroyoshiです。
+先日Akka 2.4.9-RC1がリリースされました。今回のリリースはAkka HTTPのパフォーマンス改善に焦点を絞ったアップデートでAkka HTTPのパフォーマンスがSprayと同等かそれ以上になったと書かれています。
+Akka HTTP revenge以前Akka HTTPとSpray-canのベンチマークを取った時はSprayに軍配が上がりました">
+<meta property="og:updated_time" content="2016-08-04T07:54:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Akka HTTP is faster than Spray now">
+<meta name="twitter:description" content="こんにちは、t-hiroyoshiです。
+先日Akka 2.4.9-RC1がリリースされました。今回のリリースはAkka HTTPのパフォーマンス改善に焦点を絞ったアップデートでAkka HTTPのパフォーマンスがSprayと同等かそれ以上になったと書かれています。
+Akka HTTP revenge以前Akka HTTPとSpray-canのベンチマークを取った時はSprayに軍配が上がりました">
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = { motion: true };
+</script>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="ja">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-69878701-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">t-hiroyoshi-blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">A tech blog</p>
+</div>
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i>
+              <br/>
+            
+            Tag
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i>
+              <br/>
+            
+            Archive
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/me" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i>
+              <br/>
+            
+            Me
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+  <div id="posts" class="posts-expand">
+    
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Akka HTTP is faster than Spray now
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-08-04T16:15:07+09:00" content="2016-08-04">
+              2016-08-04
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/akka/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#akka</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/scala/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/server/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#server</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/spray/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#spray</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/benchmark/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#benchmark</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        <span itemprop="articleBody"><p>こんにちは、t-hiroyoshiです。</p>
+<p>先日<a href="http://akka.io/news/2016/08/02/akka-2.4.9-RC1-released.html" target="_blank" rel="external">Akka 2.4.9-RC1</a>がリリースされました。<br>今回のリリースはAkka HTTPのパフォーマンス改善に焦点を絞ったアップデートでAkka HTTPのパフォーマンスがSprayと同等かそれ以上になったと書かれています。</p>
+<h2 id="Akka-HTTP-revenge"><a href="#Akka-HTTP-revenge" class="headerlink" title="Akka HTTP revenge"></a>Akka HTTP revenge</h2><p><a href="/spray-akka-benchmark">以前</a>Akka HTTPとSpray-canのベンチマークを取った時はSprayに軍配が上がりましたが、今回のアップデートはどれほどのものなのか軽く調べるために再度Akka HTTPのみベンチマークを取りました(Sprayはもう更新されていません)。</p>
+<p>コードやベンチマーク環境は前回と同じ状態でAkkaのバージョンのみ上げています。</p>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">This is ApacheBench, Version <span class="number">2.3</span> &lt;$Revision: <span class="number">1706008</span> $&gt;</span><br><span class="line"></span><br><span class="line">Server Software:        akka-<span class="keyword">http</span>/<span class="number">2.4</span><span class="number">.9</span>-RC1</span><br><span class="line">Server Hostname:        localhost</span><br><span class="line">Server Port:            <span class="number">8080</span></span><br><span class="line"></span><br><span class="line">Document Path:          /</span><br><span class="line">Document Length:        <span class="number">12</span> <span class="keyword">bytes</span></span><br><span class="line"></span><br><span class="line">Concurrency Level:      <span class="number">10</span></span><br><span class="line">Time taken <span class="keyword">for</span> tests:   <span class="number">0.336</span> <span class="built_in">seconds</span></span><br><span class="line">Complete requests:      <span class="number">10000</span></span><br><span class="line">Failed requests:        <span class="number">0</span></span><br><span class="line">Keep-Alive requests:    <span class="number">10000</span></span><br><span class="line">Total transferred:      <span class="number">1820000</span> <span class="keyword">bytes</span></span><br><span class="line">HTML transferred:       <span class="number">120000</span> <span class="keyword">bytes</span></span><br><span class="line">Requests per <span class="keyword">second</span>:    <span class="number">29805.82</span> [<span class="comment">#/sec] (mean)</span></span><br><span class="line">Time per request:       <span class="number">0.336</span> [ms] (mean)</span><br><span class="line">Time per request:       <span class="number">0.034</span> [ms] (mean, across all concurrent requests)</span><br><span class="line">Transfer rate:          <span class="number">5297.52</span> [Kbytes/<span class="built_in">sec</span>] received</span><br><span class="line"></span><br><span class="line">Connection Times (ms)</span><br><span class="line">              <span class="built_in">min</span>  mean[+/-sd] <span class="built_in">median</span>   <span class="built_in">max</span></span><br><span class="line">Connect:        <span class="number">0</span>    <span class="number">0</span>   <span class="number">0.0</span>      <span class="number">0</span>       <span class="number">0</span></span><br><span class="line">Processing:     <span class="number">0</span>    <span class="number">0</span>   <span class="number">0.4</span>      <span class="number">0</span>      <span class="number">17</span></span><br><span class="line">Waiting:        <span class="number">0</span>    <span class="number">0</span>   <span class="number">0.4</span>      <span class="number">0</span>      <span class="number">17</span></span><br><span class="line">Total:          <span class="number">0</span>    <span class="number">0</span>   <span class="number">0.4</span>      <span class="number">0</span>      <span class="number">17</span></span><br><span class="line"></span><br><span class="line">Percentage <span class="keyword">of</span> <span class="keyword">the</span> requests served <span class="keyword">within</span> <span class="keyword">a</span> certain <span class="built_in">time</span> (ms)</span><br><span class="line">  <span class="number">50</span>%      <span class="number">0</span></span><br><span class="line">  <span class="number">66</span>%      <span class="number">0</span></span><br><span class="line">  <span class="number">75</span>%      <span class="number">0</span></span><br><span class="line">  <span class="number">80</span>%      <span class="number">0</span></span><br><span class="line">  <span class="number">90</span>%      <span class="number">0</span></span><br><span class="line">  <span class="number">95</span>%      <span class="number">1</span></span><br><span class="line">  <span class="number">98</span>%      <span class="number">1</span></span><br><span class="line">  <span class="number">99</span>%      <span class="number">2</span></span><br><span class="line"> <span class="number">100</span>%     <span class="number">17</span> (longest request)</span><br></pre></td></tr></table></figure>
+<p>前回のベンチマークではSpray-canが23230.85 req/secでSpray-canの方がパフォーマンスが良かったですが、今回Akka HTTPは29805.82 req/secというSpray-canを越す数値を叩き出しました。<br>前回のベンチマークから4ヶ月ぐらいしか経っていないのにこんなに早くなるとは驚きです。</p>
+<h2 id="Next-steps-for-Akka-HTTP"><a href="#Next-steps-for-Akka-HTTP" class="headerlink" title="Next steps for Akka HTTP"></a>Next steps for Akka HTTP</h2><p>今後のAkka HTTPのことについては、Sprayの終末とAkka HTTPへの置き換えを推奨していて近いうちにexperimentalが外れるようです。<br>HTTP/2についても今後やっていくようで<a href="https://github.com/akka/akka-meta" target="_blank" rel="external">ここ</a>から追えます。<br>期待しながら待ちたいと思います。</p>
+</span>
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Akka HTTP is faster than Spray now" data-url="http://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/scala-native-demo-docker/" rel="next" title="Scala NativeのデモをDocker上で動かす">
+                <i class="fa fa-chevron-left"></i> Scala NativeのデモをDocker上で動かす
+              </a>
+            
+          </div>
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+      
+      
+    </footer>
+  </article>
+
+  </div>
+
+        </div>
+        
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </div>
+
+
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-code"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hiroyoshi Takahashi</span>
+</div>
+
+
+      </div>
+    </footer>
+  </div>
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+  
+  
+  
+  <script type="text/javascript">
+    var disqus_shortname = 't-hiroyoshi';
+    var disqus_identifier = 'akka-http-is-faster-than-spray/';
+    var disqus_title = 'Akka HTTP is faster than Spray now';
+    var disqus_url = 'http://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/';
+
+    function run_disqus_script(disqus_script){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }
+    run_disqus_script('count.js');
+    
+      run_disqus_script('embed.js');
+    
+  </script>
+
+
+  
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+  
+</body>
+</html>
