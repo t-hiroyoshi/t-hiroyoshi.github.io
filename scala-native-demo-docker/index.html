@@ -8,7 +8,7 @@
 <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css' async>
 
 <link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" async/>
-<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" async/>
+<link href="/css/main.css?v=1" rel="stylesheet" type="text/css" async/>
 
 <meta name="keywords" content="scala, scala-native, docker, docker-machine" />
 
@@ -17,7 +17,7 @@
 <link rel="alternate" href="/atom.xml" title="t-hiroyoshi-blog" type="application/atom+xml" />
 
 
-<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png?v=1" />
 
 <meta name="description" content="こんにちは、t-hiroyoshiです。最近はScala Days 2016 NYCで発表されたScala Nativeにコントリビュートしています。Scalaのような強力な言語がbare metalで動くのは素晴らしい事だと思っているので早く実用レベルで動くようにこれからも積極的に貢献していきたいです。
 そんな訳で今回は布教を兼ねてScala NativeのデモをDocker上で簡単に動かす方法">
@@ -185,20 +185,20 @@
 <p>ただREADMEに<code>pre-release stage</code>とあるようにまだ完全にScala-likeには動きません、ですが活発にIssueやPull reqが飛んでいるので近いうちにまともに動くようになると思っています。(まだ完成していない今ならコントリビュートのチャンス?)</p>
 <p>現在はLLVM(Clang)とBOEHM GCをローカル環境に依存しているのでデモを動かすまでにそれらのパスが通らなかったり、依存解決で結構躓く人が多いみたいです。<br>そこでScala Nativeのレポジトリ内にあるDockerfileを使って作ったコンテナ内でデモを動かしてみたいと思います。管理用のスクリプトもきちんとあるので比較的簡単に動かす事が可能です。</p>
 <h1 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h1><h2 id="docker-machineを立てる-Option"><a href="#docker-machineを立てる-Option" class="headerlink" title="docker-machineを立てる(Option)"></a>docker-machineを立てる(Option)</h2><p>なるべくローカルの環境を汚染したくないのでdocker-machineでDockerホストを立てます。<br>driverは<code>virtualbox</code>を使っていますが<code>vmwarefusion</code>で立てた方がもしかしたら<a href="http://qiita.com/suin/items/c4ba1cfd354586bbed59" target="_blank" rel="external">速い</a>かもです(Scalaはcompile時間が長いと言われている)。<br>メモリを指定しないと1Gしか割り当てられないので増やしておきます。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker-machine create -d virtualbox --virtualbox-memory 2048 scalanative</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ docker-machine create -d virtualbox --virtualbox-memory 2048 scalanative</div></pre></td></tr></table></figure>
 <p>docker-machineが立ち上がったらsshで繋ぎます。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker-machine ssh scala-native</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ docker-machine ssh scala-native</div></pre></td></tr></table></figure>
 <p>管理用のスクリプトはbashで動くのですが、Boot2Dockerは標準でbashが入っていないので次に進む前に<a href="https://t-hiroyoshi.github.io/docker-machine-bash/">ここ</a>を参考にbashをインストールしてください。</p>
 <h2 id="Scala-Nativeのコンテナイメージをビルドする"><a href="#Scala-Nativeのコンテナイメージをビルドする" class="headerlink" title="Scala Nativeのコンテナイメージをビルドする"></a>Scala Nativeのコンテナイメージをビルドする</h2><p>まずはともかくScala Nativeのソースをcloneしてきます。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/scala-native/scala-native.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ git clone https://github.com/scala-native/scala-native.git</div></pre></td></tr></table></figure>
 <p><code>scala-native/docker</code>の中にDockerfileがあるので移動して管理用のスクリプトを叩きます。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd scala-native/docker</span><br><span class="line">$ ./manage.sh build</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ cd scala-native/docker</div><div class="line">$ ./manage.sh build</div></pre></td></tr></table></figure>
 <p>色々ダウンロードしたりするので結構時間がかかります。</p>
 <p>時間がかかります辛抱強く待って下さい、コーヒーでも飲んでいれば良いと思います。<br>ビルドが終わったらいよいよデモを動かします。</p>
 <h2 id="Scala-Nativeのデモを実行する"><a href="#Scala-Nativeのデモを実行する" class="headerlink" title="Scala Nativeのデモを実行する"></a>Scala Nativeのデモを実行する</h2><p>スクリプトを叩いてビルドしたコンテナの中に入ります。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ ./manage.sh run</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ ./manage.sh run</div></pre></td></tr></table></figure>
 <p>ここでエラーが出てsbtプロジェクトが読み込まれない方は<code>scala-native/</code>配下のtargetフォルダを全て削除してみてください。<br>コンテナに入れたらsbtを起動してデモがあるdemoNativeプロジェクトを指定します。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sbt</span><br><span class="line">&gt; project demoNative</span><br><span class="line">&gt; run</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ sbt</div><div class="line">&gt; project demoNative</div><div class="line">&gt; run</div></pre></td></tr></table></figure>
 <p>後は<code>run</code>すればデモが動き出してコンパイルされたバイナリが<code>scala-native/demo/native/target/scala-2.11/demonative-out</code>に吐き出されているはずです。</p>
 <p>これはそのまま実行できるのでいろいろ試してみてください。</p>
 </span>
@@ -288,10 +288,10 @@
 
 
   
-  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/js/helpers.js?v=1"></script>
   <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
 <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
-<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+<script type="text/javascript" src="/js/motion.js?v=1" id="motion.global"></script>
 
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>

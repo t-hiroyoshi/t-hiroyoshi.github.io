@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://t-hiroyoshi.github.io/try-yarn/</loc>
+    
+    <lastmod>2016-10-13T07:44:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://t-hiroyoshi.github.io/react-drag-drop/</loc>
+    
+    <lastmod>2016-10-13T03:27:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/</loc>
     
     <lastmod>2016-08-04T10:12:41.000Z</lastmod>
@@ -54,13 +68,6 @@
     <loc>http://t-hiroyoshi.github.io/start-hexo/</loc>
     
     <lastmod>2016-03-19T10:25:59.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://t-hiroyoshi.github.io/react-drag-drop/</loc>
-    
-    <lastmod>2016-03-19T10:25:36.000Z</lastmod>
     
   </url>
   
