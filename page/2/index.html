@@ -128,6 +128,133 @@
             
               
                 
+                <a class="post-title-link" href="/spray-akka-benchmark/" itemprop="url">
+                  Akka HTTP vs Spray
+                </a>
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-04-15T22:01:19+09:00" content="2016-04-15">
+              2016-04-15
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/scala/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/akka/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#akka</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/spray/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#spray</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/server/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#server</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/benchmark/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#benchmark</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        
+          <span itemprop="articleBody">
+            <p>こんにちは、t-hiroyoshiです。<br>今回は<a href="http://t-hiroyoshi.github.io/akka-http-api/">前回紹介</a>した<a href="http://doc.akka.io/docs/akka/2.4.4/scala/http/introduction.html" target="_blank" rel="external">Akka HTTP</a>の性能が気になったのでざっくりベンチマークを取ってみました。<br>ソースコードは<a href="https://github.com/t-hiroyoshi/akka-http-vs-spray" target="_blank" rel="external">Github</a>にあげました。</p>
+<p>それぞれのバージョン等は以下の通りです。</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><div class="line"><span class="comment">// sbt.version = 0.13.11</span></div><div class="line"><span class="comment">// addSbtPlugin("io.spray" % "sbt-revolver" % "0.8.0")</span></div><div class="line"><span class="comment">// addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.2")</span></div><div class="line"></div><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> commonSettings = <span class="type">Seq</span>(</div><div class="line">  name := <span class="string">"akka-http-vs-spray"</span>,</div><div class="line">  version := <span class="string">"1.0.0"</span>,</div><div class="line">  scalaVersion := <span class="string">"2.11.8"</span>,</div><div class="line">  scalacOptions := <span class="type">Seq</span>(<span class="string">"-unchecked"</span>, <span class="string">"-deprecation"</span>, <span class="string">"-encoding"</span>, <span class="string">"utf8"</span>, <span class="string">"-Xlint"</span>)</div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">val</span> akkaV = <span class="string">"2.4.4"</span></div><div class="line"><span class="keyword">val</span> sprayV = <span class="string">"1.3.3"</span></div><div class="line"></div><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> spraySettings = <span class="type">Seq</span>(</div><div class="line">  libraryDependencies ++= &#123;</div><div class="line">    <span class="type">Seq</span>(</div><div class="line">      <span class="string">"com.typesafe.akka"</span>   %%  <span class="string">"akka-actor"</span>    % akkaV,</div><div class="line">      <span class="string">"io.spray"</span>            %%  <span class="string">"spray-can"</span>     % sprayV,</div><div class="line">      <span class="string">"io.spray"</span>            %%  <span class="string">"spray-routing"</span> % sprayV</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> akkaSettings = <span class="type">Seq</span>(</div><div class="line">  libraryDependencies ++= &#123;</div><div class="line">    <span class="type">Seq</span>(</div><div class="line">      <span class="string">"com.typesafe.akka"</span> %% <span class="string">"akka-actor"</span> % akkaV,</div><div class="line">      <span class="string">"com.typesafe.akka"</span> %% <span class="string">"akka-stream"</span> % akkaV,</div><div class="line">      <span class="string">"com.typesafe.akka"</span> %% <span class="string">"akka-http-experimental"</span> % akkaV</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> sprayServer = (project in file(<span class="string">"spray-server"</span>))</div><div class="line">.settings(commonSettings: _*)</div><div class="line">.settings(spraySettings: _*)</div><div class="line">.settings(assemblyOutputPath in assembly := file(<span class="string">"./spray-server.jar"</span>))</div><div class="line"></div><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> akkaServer = (project in file(<span class="string">"akka-server"</span>))</div><div class="line">.settings(commonSettings: _*)</div><div class="line">.settings(akkaSettings: _*)</div><div class="line">.settings(assemblyOutputPath in assembly := file(<span class="string">"./akka-server.jar"</span>))</div><div class="line"></div><div class="line"><span class="type">Revolver</span>.settings</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">java version &quot;1.8.0_71&quot;</div><div class="line">Java(TM) SE Runtime Environment (build 1.8.0_71-b15)</div><div class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.71-b15, mixed mode)</div></pre></td></tr></table></figure>
+<p><code>sbt assembly</code>したjarをローカルで<code>java -jar</code>してベンチマークをとりました。</p>
+<p>ローカル環境</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">MacBook Pro (Retina, 13-inch, Early 2015)</div><div class="line">OS: OSX 10.11.4</div><div class="line">Processor: 3.1 GHz Intel Core i7</div><div class="line">Memory: 16 GB 1867 MHz DDR3</div></pre></td></tr></table></figure>
+<p>ベンチマークにはApacheBenchを用いました。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ab -k -c 10 -n 10000 http://localhost:8080/</div></pre></td></tr></table></figure>
+<p>以下それぞれの結果です。</p>
+<h2 id="Akka-HTTP"><a href="#Akka-HTTP" class="headerlink" title="Akka HTTP"></a>Akka HTTP</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight scala"><table><tr><td class="code"><pre><div class="line"><span class="keyword">package</span> akka.server</div><div class="line"></div><div class="line"><span class="keyword">import</span> akka.actor.<span class="type">ActorSystem</span></div><div class="line"><span class="keyword">import</span> akka.http.scaladsl.<span class="type">Http</span></div><div class="line"><span class="keyword">import</span> akka.http.scaladsl.server.<span class="type">Directives</span>._</div><div class="line"><span class="keyword">import</span> akka.stream.<span class="type">ActorMaterializer</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">object</span> <span class="title">Boot</span> <span class="keyword">extends</span> <span class="title">App</span> </span>&#123;</div><div class="line">  <span class="keyword">implicit</span> <span class="keyword">lazy</span> <span class="keyword">val</span> system = <span class="type">ActorSystem</span>(<span class="string">"akka-server"</span>)</div><div class="line">  <span class="keyword">implicit</span> <span class="keyword">lazy</span> <span class="keyword">val</span> materializer = <span class="type">ActorMaterializer</span>()</div><div class="line">  <span class="keyword">implicit</span> <span class="keyword">val</span> ec = system.dispatcher</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">val</span> route =</div><div class="line">    pathSingleSlash &#123;</div><div class="line">      get &#123;</div><div class="line">        complete(<span class="string">"Hello world!"</span>)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  <span class="type">Http</span>().bindAndHandle(route, <span class="string">"localhost"</span>, <span class="number">8080</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">This is ApacheBench, Version 2.3 &lt;$Revision: 1706008 $&gt;</div><div class="line"></div><div class="line">Server Software:        akka-http/2.4.4</div><div class="line">Server Hostname:        localhost</div><div class="line">Server Port:            8080</div><div class="line"></div><div class="line">Document Path:          /</div><div class="line">Document Length:        12 bytes</div><div class="line"></div><div class="line">Concurrency Level:      10</div><div class="line">Time taken for tests:   0.465 seconds</div><div class="line">Complete requests:      10000</div><div class="line">Failed requests:        0</div><div class="line">Keep-Alive requests:    10000</div><div class="line">Total transferred:      1780000 bytes</div><div class="line">HTML transferred:       120000 bytes</div><div class="line">Requests per second:    21490.49 [#/sec] (mean)</div><div class="line">Time per request:       0.465 [ms] (mean)</div><div class="line">Time per request:       0.047 [ms] (mean, across all concurrent requests)</div><div class="line">Transfer rate:          3735.65 [Kbytes/sec] received</div><div class="line"></div><div class="line">Connection Times (ms)</div><div class="line">              min  mean[+/-sd] median   max</div><div class="line">Connect:        0    0   0.0      0       0</div><div class="line">Processing:     0    0   1.0      0      42</div><div class="line">Waiting:        0    0   1.0      0      42</div><div class="line">Total:          0    0   1.0      0      42</div><div class="line"></div><div class="line">Percentage of the requests served within a certain time (ms)</div><div class="line">  50%      0</div><div class="line">  66%      0</div><div class="line">  75%      0</div><div class="line">  80%      0</div><div class="line">  90%      1</div><div class="line">  95%      1</div><div class="line">  98%      2</div><div class="line">  99%      3</div><div class="line"> 100%     42 (longest request)</div></pre></td></tr></table></figure>
+<h2 id="Spray-can"><a href="#Spray-can" class="headerlink" title="Spray-can"></a>Spray-can</h2><h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight scala"><table><tr><td class="code"><pre><div class="line"><span class="keyword">package</span> spray.server</div><div class="line"></div><div class="line"><span class="keyword">import</span> akka.actor._</div><div class="line"><span class="keyword">import</span> akka.io.<span class="type">IO</span></div><div class="line"><span class="keyword">import</span> spray.can.<span class="type">Http</span></div><div class="line"><span class="keyword">import</span> spray.routing._</div><div class="line"><span class="keyword">import</span> spray.http._</div><div class="line"><span class="keyword">import</span> akka.pattern.ask</div><div class="line"><span class="keyword">import</span> akka.util.<span class="type">Timeout</span></div><div class="line"><span class="keyword">import</span> scala.concurrent.duration._</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">object</span> <span class="title">Boot</span> <span class="keyword">extends</span> <span class="title">App</span> </span>&#123;</div><div class="line">  <span class="keyword">implicit</span> <span class="keyword">val</span> system = <span class="type">ActorSystem</span>(<span class="string">"spray-server"</span>)</div><div class="line">  <span class="keyword">implicit</span> <span class="keyword">val</span> timeout = <span class="type">Timeout</span>(<span class="number">5.</span>seconds)</div><div class="line">  <span class="keyword">val</span> service = system.actorOf(<span class="type">Props</span>[<span class="type">ServiceActor</span>], <span class="string">"spray-service"</span>)</div><div class="line"></div><div class="line">  <span class="type">IO</span>(<span class="type">Http</span>) ? <span class="type">Http</span>.<span class="type">Bind</span>(service, <span class="string">"localhost"</span>, <span class="number">8080</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ServiceActor</span> <span class="keyword">extends</span> <span class="title">Actor</span> <span class="keyword">with</span> <span class="title">HttpService</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">val</span> route =</div><div class="line">    pathSingleSlash &#123;</div><div class="line">      get &#123;</div><div class="line">        complete(<span class="string">"Hello world!"</span>)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">actorRefFactory</span> </span>= context</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">receive</span> </span>= runRoute(route)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Result-1"><a href="#Result-1" class="headerlink" title="Result"></a>Result</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">This is ApacheBench, Version 2.3 &lt;$Revision: 1706008 $&gt;</div><div class="line"></div><div class="line">Server Software:        spray-can/1.3.3</div><div class="line">Server Hostname:        localhost</div><div class="line">Server Port:            8080</div><div class="line"></div><div class="line">Document Path:          /</div><div class="line">Document Length:        12 bytes</div><div class="line"></div><div class="line">Concurrency Level:      10</div><div class="line">Time taken for tests:   0.430 seconds</div><div class="line">Complete requests:      10000</div><div class="line">Failed requests:        0</div><div class="line">Keep-Alive requests:    10000</div><div class="line">Total transferred:      1780000 bytes</div><div class="line">HTML transferred:       120000 bytes</div><div class="line">Requests per second:    23230.85 [#/sec] (mean)</div><div class="line">Time per request:       0.430 [ms] (mean)</div><div class="line">Time per request:       0.043 [ms] (mean, across all concurrent requests)</div><div class="line">Transfer rate:          4038.18 [Kbytes/sec] received</div><div class="line"></div><div class="line">Connection Times (ms)</div><div class="line">              min  mean[+/-sd] median   max</div><div class="line">Connect:        0    0   0.0      0       0</div><div class="line">Processing:     0    0   0.9      0      20</div><div class="line">Waiting:        0    0   0.9      0      20</div><div class="line">Total:          0    0   0.9      0      20</div><div class="line"></div><div class="line">Percentage of the requests served within a certain time (ms)</div><div class="line">  50%      0</div><div class="line">  66%      0</div><div class="line">  75%      0</div><div class="line">  80%      0</div><div class="line">  90%      1</div><div class="line">  95%      1</div><div class="line">  98%      2</div><div class="line">  99%      3</div><div class="line"> 100%     20 (longest request)</div></pre></td></tr></table></figure>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p> Akka HTTPが21490.49 req/sec、Spray-canが23230.85 req/secと割と近い数値が出た気がします。<br> Akka HTTPは前もっと使い物にならないくらい遅かったイメージだったんですがこれなら十分なリクエストがさばけそうです。</p>
+
+          </span>
+        
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Akka HTTP vs Spray" data-url="http://t-hiroyoshi.github.io/spray-akka-benchmark/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+    
+      
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/akka-http-api/" itemprop="url">
                   Akka-HTTPでREST APIを作る
                 </a>
@@ -147,16 +274,6 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/akka/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#akka</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/scala/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#scala</span>
                     </a>
@@ -167,8 +284,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/server/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#server</span>
+                    <a href="/tags/akka/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#akka</span>
                     </a>
                 </span>
                 
@@ -179,6 +296,16 @@
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/spray/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#spray</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/server/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#server</span>
                     </a>
                 </span>
                 
@@ -272,8 +399,28 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/scala/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/akka/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#akka</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/server/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#server</span>
                     </a>
                 </span>
                 
@@ -302,28 +449,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/scala/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#scala</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/hackathon/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#hackathon</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/server/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#server</span>
                     </a>
                 </span>
                 
@@ -405,8 +532,8 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/reactjs/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#reactjs</span>
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
                     </a>
                 </span>
                 
@@ -415,8 +542,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
+                    <a href="/tags/reactjs/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#reactjs</span>
                     </a>
                 </span>
                 
@@ -522,16 +649,6 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/hexo/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#hexo</span>
                     </a>
@@ -544,6 +661,16 @@
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                     <a href="/tags/github/" itemprop="url" rel="index">
                       <span itemprop="name">&nbsp;#github</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
                     </a>
                 </span>
                 
