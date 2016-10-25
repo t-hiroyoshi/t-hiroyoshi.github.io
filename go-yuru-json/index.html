@@ -20,18 +20,18 @@
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png?v=1" />
 
 <meta name="description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が合ったのですが、ゆるふわMarshalについては情報がありませんでし">
+JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GoのJSON API ServerでゆるふわJSON responseを返す方法">
 <meta property="og:url" content="http://t-hiroyoshi.github.io/go-yuru-json/index.html">
 <meta property="og:site_name" content="t-hiroyoshi-blog">
 <meta property="og:description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が合ったのですが、ゆるふわMarshalについては情報がありませんでし">
-<meta property="og:updated_time" content="2016-10-25T12:00:43.000Z">
+JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
+<meta property="og:updated_time" content="2016-10-25T12:12:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GoのJSON API ServerでゆるふわJSON responseを返す方法">
 <meta name="twitter:description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が合ったのですが、ゆるふわMarshalについては情報がありませんでし">
+JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = { motion: true };
 </script>
@@ -170,7 +170,7 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
       
       
         <span itemprop="articleBody"><p>最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。</p>
-<p>JSONのUnmarshalについては<a href="https://www.kaoriya.net/blog/2016/06/25/" target="_blank" rel="external">golangはゆるふわにJSONを扱えまぁす!</a>という記事が合ったのですが、ゆるふわMarshalについては情報がありませんでした。</p>
+<p>JSONのUnmarshalについては<a href="https://www.kaoriya.net/blog/2016/06/25/" target="_blank" rel="external">golangはゆるふわにJSONを扱えまぁす!</a>という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでした。</p>
 <p>ですが考えてみればjson.Marshal()すると<code>[]byte</code>型になるのでそれを初めから作ってあげればよかったです。<br>まあもちろんこれではGoの良いところを捨てているようなものですが、開発中のとりあえずのレスポンスには手軽で良いと思いました。</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">jsonResponse</span><span class="params">(rw http.ResponseWriter, req *http.Request)</span></span> &#123;</div><div class="line">    response := []<span class="keyword">byte</span>(<span class="string">`</span></div><div class="line">        &#123;</div><div class="line">          "status": "success",</div><div class="line">          "user":</div><div class="line">            &#123;</div><div class="line">              "id": "2d7b8fe1-1e63-4c3b-83b9-46274554e822",</div><div class="line">              "name": "9aa676fa-fc75-49cf-94db-2ac949c07ff7",</div><div class="line">              "birthday": "1993-09-06T11:22:33.496Z"</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    `)</div><div class="line"></div><div class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</div><div class="line">        rw.Header().Set(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>)</div><div class="line">        fmt.Fprint(rw, <span class="keyword">string</span>(response))</div><div class="line">    &#125;()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    http.HandleFunc(<span class="string">"/json"</span>, jsonResponse)</div><div class="line">    http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </span>
