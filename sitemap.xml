@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://t-hiroyoshi.github.io/go-gin-json/</loc>
+    <loc>http://t-hiroyoshi.github.io/go-yuru-json/</loc>
     
     <lastmod>2016-10-25T12:00:43.000Z</lastmod>
     
@@ -37,14 +37,14 @@
   </url>
   
   <url>
-    <loc>http://t-hiroyoshi.github.io/me/index.html</loc>
+    <loc>http://t-hiroyoshi.github.io/scala-native-demo-docker/</loc>
     
     <lastmod>2016-07-26T06:17:05.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://t-hiroyoshi.github.io/scala-native-demo-docker/</loc>
+    <loc>http://t-hiroyoshi.github.io/me/index.html</loc>
     
     <lastmod>2016-07-26T06:17:05.000Z</lastmod>
     

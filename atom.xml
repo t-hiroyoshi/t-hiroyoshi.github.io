@@ -17,8 +17,8 @@
   
   <entry>
     <title>GoのJSON API ServerでゆるふわJSON responseを返す方法</title>
-    <link href="http://t-hiroyoshi.github.io/go-gin-json/"/>
-    <id>http://t-hiroyoshi.github.io/go-gin-json/</id>
+    <link href="http://t-hiroyoshi.github.io/go-yuru-json/"/>
+    <id>http://t-hiroyoshi.github.io/go-yuru-json/</id>
     <published>2016-10-25T10:24:09.000Z</published>
     <updated>2016-10-25T12:00:43.000Z</updated>
     
@@ -81,9 +81,9 @@
     </summary>
     
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
-    
       <category term="reactjs" scheme="http://t-hiroyoshi.github.io/tags/reactjs/"/>
+    
+      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
     
   </entry>
   
@@ -111,13 +111,13 @@
     </summary>
     
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
     
       <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+    
+      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
     
       <category term="benchmark" scheme="http://t-hiroyoshi.github.io/tags/benchmark/"/>
     
@@ -228,13 +228,13 @@
     </summary>
     
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
     
       <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+    
+      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
     
       <category term="benchmark" scheme="http://t-hiroyoshi.github.io/tags/benchmark/"/>
     
@@ -279,13 +279,13 @@
     </summary>
     
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
     
       <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+    
+      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
     
   </entry>
   
@@ -317,17 +317,17 @@
     </summary>
     
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
-    
-      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
     
       <category term="adtech" scheme="http://t-hiroyoshi.github.io/tags/adtech/"/>
     
       <category term="aws" scheme="http://t-hiroyoshi.github.io/tags/aws/"/>
     
+      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
+    
       <category term="hackathon" scheme="http://t-hiroyoshi.github.io/tags/hackathon/"/>
+    
+      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
     
   </entry>
   
@@ -372,9 +372,9 @@
     </summary>
     
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
-    
       <category term="reactjs" scheme="http://t-hiroyoshi.github.io/tags/reactjs/"/>
+    
+      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
     
       <category term="client" scheme="http://t-hiroyoshi.github.io/tags/client/"/>
     
@@ -429,11 +429,11 @@
     </summary>
     
     
+      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
+    
       <category term="hexo" scheme="http://t-hiroyoshi.github.io/tags/hexo/"/>
     
       <category term="github" scheme="http://t-hiroyoshi.github.io/tags/github/"/>
-    
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
     
   </entry>
   
