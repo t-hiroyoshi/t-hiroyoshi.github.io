@@ -4,9 +4,9 @@
   <subtitle>A tech blog</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://t-hiroyoshi.github.io/"/>
-  <updated>2016-11-18T04:20:52.000Z</updated>
-  <id>http://t-hiroyoshi.github.io/</id>
+  <link href="https://t-hiroyoshi.github.io/"/>
+  <updated>2016-11-18T04:43:47.000Z</updated>
+  <id>https://t-hiroyoshi.github.io/</id>
   
   <author>
     <name>Hiroyoshi Takahashi</name>
@@ -17,16 +17,16 @@
   
   <entry>
     <title>yarn global addしたパッケージのパスを通す</title>
-    <link href="http://t-hiroyoshi.github.io/yarn-global-link/"/>
-    <id>http://t-hiroyoshi.github.io/yarn-global-link/</id>
+    <link href="https://t-hiroyoshi.github.io/yarn-global-link/"/>
+    <id>https://t-hiroyoshi.github.io/yarn-global-link/</id>
     <published>2016-11-18T04:17:12.000Z</published>
-    <updated>2016-11-18T04:20:52.000Z</updated>
+    <updated>2016-11-18T04:43:47.000Z</updated>
     
     <content type="html"><![CDATA[<p><code>yarn global add</code>しても自動でパス通してくれないっぽい<a href="https://github.com/yarnpkg/yarn/issues/1585" target="_blank" rel="external">バグ</a>があるようで</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ yarn global add create-react-app</div><div class="line">$ create-react-app</div><div class="line">zsh: <span class="built_in">command</span> not found: create-react-app</div></pre></td></tr></table></figure>
 <p>ってなったので~/.zshrcに以下を追加しました。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">export PATH=&quot;$PATH:`yarn global bin`&quot;</div></pre></td></tr></table></figure>
-<p>もう一回やってみると行けます。</p>
+<p>もう一回やってみるといけます。</p>
 <figure class="highlight dsconfig"><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">create-react-app</span></div><div class="line"><span class="string">Usage:</span> <span class="built_in">create-react-app</span> &lt;<span class="string">project-directory&gt;</span> [<span class="built_in">--verbose]</span></div></pre></td></tr></table></figure>
 <p><code>yarn global</code>には結構バグがあるっぽいので早く安定してほしいですね。</p>
 ]]></content>
@@ -38,16 +38,16 @@
     </summary>
     
     
-      <category term="reactjs" scheme="http://t-hiroyoshi.github.io/tags/reactjs/"/>
+      <category term="reactjs" scheme="https://t-hiroyoshi.github.io/tags/reactjs/"/>
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="https://t-hiroyoshi.github.io/tags/javascript/"/>
     
   </entry>
   
   <entry>
     <title>webpackで使えるSourceMap一覧まとめ</title>
-    <link href="http://t-hiroyoshi.github.io/webpack-devtool/"/>
-    <id>http://t-hiroyoshi.github.io/webpack-devtool/</id>
+    <link href="https://t-hiroyoshi.github.io/webpack-devtool/"/>
+    <id>https://t-hiroyoshi.github.io/webpack-devtool/</id>
     <published>2016-11-03T15:41:46.000Z</published>
     <updated>2016-11-18T04:38:17.000Z</updated>
     
@@ -134,16 +134,16 @@
     </summary>
     
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="https://t-hiroyoshi.github.io/tags/javascript/"/>
     
-      <category term="webpack" scheme="http://t-hiroyoshi.github.io/tags/webpack/"/>
+      <category term="webpack" scheme="https://t-hiroyoshi.github.io/tags/webpack/"/>
     
   </entry>
   
   <entry>
     <title>GoのJSON API ServerでゆるふわJSON responseを返す方法</title>
-    <link href="http://t-hiroyoshi.github.io/go-yuru-json/"/>
-    <id>http://t-hiroyoshi.github.io/go-yuru-json/</id>
+    <link href="https://t-hiroyoshi.github.io/go-yuru-json/"/>
+    <id>https://t-hiroyoshi.github.io/go-yuru-json/</id>
     <published>2016-10-25T10:24:09.000Z</published>
     <updated>2016-11-03T15:47:17.000Z</updated>
     
@@ -161,16 +161,16 @@
     </summary>
     
     
-      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+      <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
     
-      <category term="go" scheme="http://t-hiroyoshi.github.io/tags/go/"/>
+      <category term="go" scheme="https://t-hiroyoshi.github.io/tags/go/"/>
     
   </entry>
   
   <entry>
     <title>Yarnでreact-tutorialを動かす</title>
-    <link href="http://t-hiroyoshi.github.io/try-yarn/"/>
-    <id>http://t-hiroyoshi.github.io/try-yarn/</id>
+    <link href="https://t-hiroyoshi.github.io/try-yarn/"/>
+    <id>https://t-hiroyoshi.github.io/try-yarn/</id>
     <published>2016-10-13T02:28:33.000Z</published>
     <updated>2016-10-13T07:44:51.000Z</updated>
     
@@ -206,16 +206,16 @@
     </summary>
     
     
-      <category term="reactjs" scheme="http://t-hiroyoshi.github.io/tags/reactjs/"/>
+      <category term="reactjs" scheme="https://t-hiroyoshi.github.io/tags/reactjs/"/>
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="https://t-hiroyoshi.github.io/tags/javascript/"/>
     
   </entry>
   
   <entry>
     <title>Akka HTTP is faster than Spray now</title>
-    <link href="http://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/"/>
-    <id>http://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/</id>
+    <link href="https://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/"/>
+    <id>https://t-hiroyoshi.github.io/akka-http-is-faster-than-spray/</id>
     <published>2016-08-04T07:15:07.000Z</published>
     <updated>2016-08-04T10:12:41.000Z</updated>
     
@@ -236,22 +236,22 @@
     </summary>
     
     
-      <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
+      <category term="akka" scheme="https://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
     
-      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+      <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
     
-      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
     
-      <category term="benchmark" scheme="http://t-hiroyoshi.github.io/tags/benchmark/"/>
+      <category term="benchmark" scheme="https://t-hiroyoshi.github.io/tags/benchmark/"/>
     
   </entry>
   
   <entry>
     <title>Scala NativeのデモをDocker上で動かす</title>
-    <link href="http://t-hiroyoshi.github.io/scala-native-demo-docker/"/>
-    <id>http://t-hiroyoshi.github.io/scala-native-demo-docker/</id>
+    <link href="https://t-hiroyoshi.github.io/scala-native-demo-docker/"/>
+    <id>https://t-hiroyoshi.github.io/scala-native-demo-docker/</id>
     <published>2016-07-14T04:23:02.000Z</published>
     <updated>2016-07-26T06:17:05.000Z</updated>
     
@@ -286,18 +286,18 @@
     </summary>
     
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
     
-      <category term="docker" scheme="http://t-hiroyoshi.github.io/tags/docker/"/>
+      <category term="docker" scheme="https://t-hiroyoshi.github.io/tags/docker/"/>
     
-      <category term="scala-native" scheme="http://t-hiroyoshi.github.io/tags/scala-native/"/>
+      <category term="scala-native" scheme="https://t-hiroyoshi.github.io/tags/scala-native/"/>
     
   </entry>
   
   <entry>
     <title>Docker Machineでbashを使えるようにする</title>
-    <link href="http://t-hiroyoshi.github.io/docker-machine-bash/"/>
-    <id>http://t-hiroyoshi.github.io/docker-machine-bash/</id>
+    <link href="https://t-hiroyoshi.github.io/docker-machine-bash/"/>
+    <id>https://t-hiroyoshi.github.io/docker-machine-bash/</id>
     <published>2016-06-19T14:22:43.000Z</published>
     <updated>2016-06-20T09:07:39.000Z</updated>
     
@@ -316,16 +316,16 @@
     </summary>
     
     
-      <category term="docker" scheme="http://t-hiroyoshi.github.io/tags/docker/"/>
+      <category term="docker" scheme="https://t-hiroyoshi.github.io/tags/docker/"/>
     
-      <category term="shell" scheme="http://t-hiroyoshi.github.io/tags/shell/"/>
+      <category term="shell" scheme="https://t-hiroyoshi.github.io/tags/shell/"/>
     
   </entry>
   
   <entry>
     <title>Akka HTTP vs Spray</title>
-    <link href="http://t-hiroyoshi.github.io/spray-akka-benchmark/"/>
-    <id>http://t-hiroyoshi.github.io/spray-akka-benchmark/</id>
+    <link href="https://t-hiroyoshi.github.io/spray-akka-benchmark/"/>
+    <id>https://t-hiroyoshi.github.io/spray-akka-benchmark/</id>
     <published>2016-04-15T13:01:19.000Z</published>
     <updated>2016-08-04T07:25:56.000Z</updated>
     
@@ -353,22 +353,22 @@
     </summary>
     
     
-      <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
+      <category term="akka" scheme="https://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
     
-      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+      <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
     
-      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
     
-      <category term="benchmark" scheme="http://t-hiroyoshi.github.io/tags/benchmark/"/>
+      <category term="benchmark" scheme="https://t-hiroyoshi.github.io/tags/benchmark/"/>
     
   </entry>
   
   <entry>
     <title>Akka-HTTPでREST APIを作る</title>
-    <link href="http://t-hiroyoshi.github.io/akka-http-api/"/>
-    <id>http://t-hiroyoshi.github.io/akka-http-api/</id>
+    <link href="https://t-hiroyoshi.github.io/akka-http-api/"/>
+    <id>https://t-hiroyoshi.github.io/akka-http-api/</id>
     <published>2016-04-12T08:21:04.000Z</published>
     <updated>2016-04-18T06:09:02.000Z</updated>
     
@@ -404,20 +404,20 @@
     </summary>
     
     
-      <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
+      <category term="akka" scheme="https://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
     
-      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+      <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
     
-      <category term="spray" scheme="http://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
     
   </entry>
   
   <entry>
     <title>CyberAgentさんのアドテクコンペで特別賞頂いた話</title>
-    <link href="http://t-hiroyoshi.github.io/adtech-compe/"/>
-    <id>http://t-hiroyoshi.github.io/adtech-compe/</id>
+    <link href="https://t-hiroyoshi.github.io/adtech-compe/"/>
+    <id>https://t-hiroyoshi.github.io/adtech-compe/</id>
     <published>2016-03-01T16:22:05.000Z</published>
     <updated>2016-04-16T09:13:04.000Z</updated>
     
@@ -442,24 +442,24 @@
     </summary>
     
     
-      <category term="akka" scheme="http://t-hiroyoshi.github.io/tags/akka/"/>
+      <category term="akka" scheme="https://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="adtech" scheme="http://t-hiroyoshi.github.io/tags/adtech/"/>
+      <category term="adtech" scheme="https://t-hiroyoshi.github.io/tags/adtech/"/>
     
-      <category term="aws" scheme="http://t-hiroyoshi.github.io/tags/aws/"/>
+      <category term="aws" scheme="https://t-hiroyoshi.github.io/tags/aws/"/>
     
-      <category term="scala" scheme="http://t-hiroyoshi.github.io/tags/scala/"/>
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
     
-      <category term="hackathon" scheme="http://t-hiroyoshi.github.io/tags/hackathon/"/>
+      <category term="hackathon" scheme="https://t-hiroyoshi.github.io/tags/hackathon/"/>
     
-      <category term="server" scheme="http://t-hiroyoshi.github.io/tags/server/"/>
+      <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
     
   </entry>
   
   <entry>
     <title>ReactでDrag&amp;Drop</title>
-    <link href="http://t-hiroyoshi.github.io/react-drag-drop/"/>
-    <id>http://t-hiroyoshi.github.io/react-drag-drop/</id>
+    <link href="https://t-hiroyoshi.github.io/react-drag-drop/"/>
+    <id>https://t-hiroyoshi.github.io/react-drag-drop/</id>
     <published>2015-12-14T13:00:00.000Z</published>
     <updated>2016-10-13T03:27:55.000Z</updated>
     
@@ -497,18 +497,18 @@
     </summary>
     
     
-      <category term="reactjs" scheme="http://t-hiroyoshi.github.io/tags/reactjs/"/>
+      <category term="reactjs" scheme="https://t-hiroyoshi.github.io/tags/reactjs/"/>
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="https://t-hiroyoshi.github.io/tags/javascript/"/>
     
-      <category term="client" scheme="http://t-hiroyoshi.github.io/tags/client/"/>
+      <category term="client" scheme="https://t-hiroyoshi.github.io/tags/client/"/>
     
   </entry>
   
   <entry>
     <title>Hexoを使って無料でブログを公開する</title>
-    <link href="http://t-hiroyoshi.github.io/start-hexo/"/>
-    <id>http://t-hiroyoshi.github.io/start-hexo/</id>
+    <link href="https://t-hiroyoshi.github.io/start-hexo/"/>
+    <id>https://t-hiroyoshi.github.io/start-hexo/</id>
     <published>2015-11-19T13:14:39.000Z</published>
     <updated>2016-03-19T10:25:59.000Z</updated>
     
@@ -554,11 +554,11 @@
     </summary>
     
     
-      <category term="javascript" scheme="http://t-hiroyoshi.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="https://t-hiroyoshi.github.io/tags/javascript/"/>
     
-      <category term="hexo" scheme="http://t-hiroyoshi.github.io/tags/hexo/"/>
+      <category term="hexo" scheme="https://t-hiroyoshi.github.io/tags/hexo/"/>
     
-      <category term="github" scheme="http://t-hiroyoshi.github.io/tags/github/"/>
+      <category term="github" scheme="https://t-hiroyoshi.github.io/tags/github/"/>
     
   </entry>
   
