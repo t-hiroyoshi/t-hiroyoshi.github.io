@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="use-motion">
 <head>
-  <title>GoのJSON API ServerでゆるふわJSON responseを返す方法 | t-hiroyoshi-blog</title>
+  <title>webpackで使えるSourceMap一覧まとめ | t-hiroyoshi-blog</title>
   <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -10,7 +10,7 @@
 <link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" async/>
 <link href="/css/main.css?v=1" rel="stylesheet" type="text/css" async/>
 
-<meta name="keywords" content="golang, go, gin, json, http, api" />
+<meta name="keywords" content="nodejs, webpack, javascript" />
 
 
 
@@ -19,19 +19,25 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png?v=1" />
 
-<meta name="description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
+<meta name="description" content="eval: それぞれのモジュールはevalとして実行され//@ sourceURLが付けられます
+source-map: SourceMapを完全に別ファイルとして生成します。output.sourceMapFilenameで設定が可能です
+hidden-source-map: source-mapと同様SourceMapを別ファイルとして生成しますがバンドルに参照コメントを含みません
+inli">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GoのJSON API ServerでゆるふわJSON responseを返す方法">
-<meta property="og:url" content="http://t-hiroyoshi.github.io/go-yuru-json/index.html">
+<meta property="og:title" content="webpackで使えるSourceMap一覧まとめ">
+<meta property="og:url" content="http://t-hiroyoshi.github.io/webpack-devtool/index.html">
 <meta property="og:site_name" content="t-hiroyoshi-blog">
-<meta property="og:description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
-<meta property="og:updated_time" content="2016-11-03T15:47:17.000Z">
+<meta property="og:description" content="eval: それぞれのモジュールはevalとして実行され//@ sourceURLが付けられます
+source-map: SourceMapを完全に別ファイルとして生成します。output.sourceMapFilenameで設定が可能です
+hidden-source-map: source-mapと同様SourceMapを別ファイルとして生成しますがバンドルに参照コメントを含みません
+inli">
+<meta property="og:updated_time" content="2016-11-18T04:19:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GoのJSON API ServerでゆるふわJSON responseを返す方法">
-<meta name="twitter:description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
+<meta name="twitter:title" content="webpackで使えるSourceMap一覧まとめ">
+<meta name="twitter:description" content="eval: それぞれのモジュールはevalとして実行され//@ sourceURLが付けられます
+source-map: SourceMapを完全に別ファイルとして生成します。output.sourceMapFilenameで設定が可能です
+hidden-source-map: source-mapと同様SourceMapを別ファイルとして生成しますがバンドルに参照コメントを含みません
+inli">
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = { motion: true };
 </script>
@@ -126,7 +132,7 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
             
             
               
-                GoのJSON API ServerでゆるふわJSON responseを返す方法
+                webpackで使えるSourceMap一覧まとめ
               
             
           </h1>
@@ -134,8 +140,8 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
         <div class="post-meta">
           <span class="post-time">
             Posted on
-            <time itemprop="dateCreated" datetime="2016-10-25T19:24:09+09:00" content="2016-10-25">
-              2016-10-25
+            <time itemprop="dateCreated" datetime="2016-11-04T00:41:46+09:00" content="2016-11-04">
+              2016-11-04
             </time>
           </span>
           
@@ -143,8 +149,8 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/server/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#server</span>
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
                     </a>
                 </span>
                 
@@ -153,8 +159,8 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/go/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#go</span>
+                    <a href="/tags/webpack/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#webpack</span>
                     </a>
                 </span>
                 
@@ -169,31 +175,98 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
       
       
       
-        <span itemprop="articleBody"><p>最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。</p>
-<p>JSONのUnmarshalについては<a href="https://www.kaoriya.net/blog/2016/06/25/" target="_blank" rel="external">golangはゆるふわにJSONを扱えまぁす!</a>という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでした。</p>
-<p>ですが考えてみればjson.Marshal()すると<code>[]byte</code>型になるのでそれを初めから作ってあげればよかったです。<br>まあもちろんこれではGoの良いところを捨てているようなものですが、開発中のとりあえずのレスポンスには手軽で良いと思いました。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">jsonResponse</span><span class="params">(rw http.ResponseWriter, req *http.Request)</span></span> &#123;</div><div class="line">    response := []<span class="keyword">byte</span>(<span class="string">`</span></div><div class="line">        &#123;</div><div class="line">          "status": "success",</div><div class="line">          "user":</div><div class="line">            &#123;</div><div class="line">              "id": "2d7b8fe1-1e63-4c3b-83b9-46274554e822",</div><div class="line">              "name": "t-hiroyoshi",</div><div class="line">              "birthday": "1993-09-06T11:22:33.496Z"</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    `)</div><div class="line"></div><div class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</div><div class="line">        rw.Header().Set(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>)</div><div class="line">        fmt.Fprint(rw, <span class="keyword">string</span>(response))</div><div class="line">    &#125;()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    http.HandleFunc(<span class="string">"/json"</span>, jsonResponse)</div><div class="line">    http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><ul>
+<li><code>eval</code>: それぞれのモジュールはevalとして実行され<code>//@ sourceURL</code>が付けられます</li>
+<li><code>source-map</code>: SourceMapを完全に別ファイルとして生成します。<code>output.sourceMapFilename</code>で設定が可能です</li>
+<li><code>hidden-source-map</code>: <code>source-map</code>と同様SourceMapを別ファイルとして生成しますがバンドルに参照コメントを含みません</li>
+<li><code>inline-source-map</code>: SourceMapはDataUrlとしてバンドルされます</li>
+<li><code>eval-source-map</code>: それぞれのモジュールはevalとして実行され、SourceMapはDataUrlとしてevalに追加されます</li>
+<li><code>cheap-source-map</code>: SourceMapは列を無視して生成されます。loaderで読み込まれたSourceMapは無視されます。</li>
+<li><code>cheap-module-source-map</code>: SourceMapは列を無視して生成されます。ロードされたソースマップを1行に1つのマッピングに単純化されます。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">devtool</th>
+<th style="text-align:center">build</th>
+<th style="text-align:center">rebuild</th>
+<th style="text-align:center">production</th>
+<th style="text-align:center">quality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">eval</td>
+<td style="text-align:center">+++</td>
+<td style="text-align:center">+++</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">generated code</td>
+</tr>
+<tr>
+<td style="text-align:center">cheap-eval-source-map</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">++</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">transformed code (lines only)</td>
+</tr>
+<tr>
+<td style="text-align:center">cheap-source-map</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">transformed code (lines only)</td>
+</tr>
+<tr>
+<td style="text-align:center">cheap-module-eval-source-map</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">++</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">original source (lines only)</td>
+</tr>
+<tr>
+<td style="text-align:center">cheap-module-source-map</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">original source (lines only)</td>
+</tr>
+<tr>
+<td style="text-align:center">eval-source-map</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">original source</td>
+</tr>
+<tr>
+<td style="text-align:center">source-map</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">original source</td>
+</tr>
+</tbody>
+</table>
 </span>
       
     </div>
     <footer class="post-footer">
       <div class="twitter-share-button-wrap">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-text="GoのJSON API ServerでゆるふわJSON responseを返す方法" data-url="http://t-hiroyoshi.github.io/go-yuru-json/" data-via="t_hiroyoshi">Twitter</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="webpackで使えるSourceMap一覧まとめ" data-url="http://t-hiroyoshi.github.io/webpack-devtool/" data-via="t_hiroyoshi">Twitter</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/try-yarn/" rel="next" title="Yarnでreact-tutorialを動かす">
-                <i class="fa fa-chevron-left"></i> Yarnでreact-tutorialを動かす
+              <a href="/go-yuru-json/" rel="next" title="GoのJSON API ServerでゆるふわJSON responseを返す方法">
+                <i class="fa fa-chevron-left"></i> GoのJSON API ServerでゆるふわJSON responseを返す方法
               </a>
             
           </div>
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/webpack-devtool/" rel="prev" title="webpackで使えるSourceMap一覧まとめ">
-                webpackで使えるSourceMap一覧まとめ <i class="fa fa-chevron-right"></i>
+              <a href="/yarn-global-link/" rel="prev" title="yarn global addしたパッケージのパスを通す">
+                yarn global addしたパッケージのパスを通す <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -241,9 +314,9 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
   
   <script type="text/javascript">
     var disqus_shortname = 't-hiroyoshi';
-    var disqus_identifier = 'go-yuru-json/';
-    var disqus_title = 'GoのJSON API ServerでゆるふわJSON responseを返す方法';
-    var disqus_url = 'http://t-hiroyoshi.github.io/go-yuru-json/';
+    var disqus_identifier = 'webpack-devtool/';
+    var disqus_title = 'webpackで使えるSourceMap一覧まとめ';
+    var disqus_url = 'http://t-hiroyoshi.github.io/webpack-devtool/';
 
     function run_disqus_script(disqus_script){
       var dsq = document.createElement('script');

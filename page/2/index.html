@@ -128,6 +128,207 @@
             
               
                 
+                <a class="post-title-link" href="/scala-native-demo-docker/" itemprop="url">
+                  Scala NativeのデモをDocker上で動かす
+                </a>
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-07-14T13:23:02+09:00" content="2016-07-14">
+              2016-07-14
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/scala/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/docker/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#docker</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/scala-native/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#scala-native</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        
+          <span itemprop="articleBody">
+            <p>こんにちは、t-hiroyoshiです。<br>最近は<a href="http://event.scaladays.org/scaladays-nyc-2016" target="_blank" rel="external">Scala Days 2016 NYC</a>で発表された<a href="https://github.com/scala-native/scala-native" target="_blank" rel="external">Scala Native</a>にコントリビュートしています。Scalaのような強力な言語がbare metalで動くのは素晴らしい事だと思っているので早く実用レベルで動くようにこれからも積極的に貢献していきたいです。</p>
+<p>そんな訳で今回は布教を兼ねてScala NativeのデモをDocker上で簡単に動かす方法を紹介したいと思います。</p>
+<h1 id="Scala-Native"><a href="#Scala-Native" class="headerlink" title="Scala Native"></a>Scala Native</h1><p>Scala Nativeとは何かと言うと、ScalaのコードをLLVMのIR経由でコンパイルしてNative実行可能にするAOTコンパイラ(AheadOfTimeCompiler)実装です。<br>一部低級な処理向けにScalaを拡張しているのである意味別言語と言っても過言ではないかもしれません。<br>これらの拡張によってScalaをSystem level languageに落とし込めるのでその気になればScalaで何でも作れるわけで、とても未来が楽しみです。</p>
+<p>ただREADMEに<code>pre-release stage</code>とあるようにまだ完全にScala-likeには動きません、ですが活発にIssueやPull reqが飛んでいるので近いうちにまともに動くようになると思っています。(まだ完成していない今ならコントリビュートのチャンス?)</p>
+<p>現在はLLVM(Clang)とBOEHM GCをローカル環境に依存しているのでデモを動かすまでにそれらのパスが通らなかったり、依存解決で結構躓く人が多いみたいです。<br>そこでScala Nativeのレポジトリ内にあるDockerfileを使って作ったコンテナ内でデモを動かしてみたいと思います。管理用のスクリプトもきちんとあるので比較的簡単に動かす事が可能です。</p>
+<h1 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h1><h2 id="docker-machineを立てる-Option"><a href="#docker-machineを立てる-Option" class="headerlink" title="docker-machineを立てる(Option)"></a>docker-machineを立てる(Option)</h2><p>なるべくローカルの環境を汚染したくないのでdocker-machineでDockerホストを立てます。<br>driverは<code>virtualbox</code>を使っていますが<code>vmwarefusion</code>で立てた方がもしかしたら<a href="http://qiita.com/suin/items/c4ba1cfd354586bbed59" target="_blank" rel="external">速い</a>かもです(Scalaはcompile時間が長いと言われている)。<br>メモリを指定しないと1Gしか割り当てられないので増やしておきます。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ docker-machine create -d virtualbox --virtualbox-memory 2048 scalanative</div></pre></td></tr></table></figure>
+<p>docker-machineが立ち上がったらsshで繋ぎます。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ docker-machine ssh scala-native</div></pre></td></tr></table></figure>
+<p>管理用のスクリプトはbashで動くのですが、Boot2Dockerは標準でbashが入っていないので次に進む前に<a href="https://t-hiroyoshi.github.io/docker-machine-bash/">ここ</a>を参考にbashをインストールしてください。</p>
+<h2 id="Scala-Nativeのコンテナイメージをビルドする"><a href="#Scala-Nativeのコンテナイメージをビルドする" class="headerlink" title="Scala Nativeのコンテナイメージをビルドする"></a>Scala Nativeのコンテナイメージをビルドする</h2><p>まずはともかくScala Nativeのソースをcloneしてきます。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ git clone https://github.com/scala-native/scala-native.git</div></pre></td></tr></table></figure>
+<p><code>scala-native/docker</code>の中にDockerfileがあるので移動して管理用のスクリプトを叩きます。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ cd scala-native/docker</div><div class="line">$ ./manage.sh build</div></pre></td></tr></table></figure>
+<p>色々ダウンロードしたりするので結構時間がかかります。</p>
+<p>時間がかかります辛抱強く待って下さい、コーヒーでも飲んでいれば良いと思います。<br>ビルドが終わったらいよいよデモを動かします。</p>
+<h2 id="Scala-Nativeのデモを実行する"><a href="#Scala-Nativeのデモを実行する" class="headerlink" title="Scala Nativeのデモを実行する"></a>Scala Nativeのデモを実行する</h2><p>スクリプトを叩いてビルドしたコンテナの中に入ります。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ ./manage.sh run</div></pre></td></tr></table></figure>
+<p>ここでエラーが出てsbtプロジェクトが読み込まれない方は<code>scala-native/</code>配下のtargetフォルダを全て削除してみてください。<br>コンテナに入れたらsbtを起動してデモがあるdemoNativeプロジェクトを指定します。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ sbt</div><div class="line">&gt; project demoNative</div><div class="line">&gt; run</div></pre></td></tr></table></figure>
+<p>後は<code>run</code>すればデモが動き出してコンパイルされたバイナリが<code>scala-native/demo/native/target/scala-2.11/demonative-out</code>に吐き出されているはずです。</p>
+<p>これはそのまま実行できるのでいろいろ試してみてください。</p>
+
+          </span>
+        
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Scala NativeのデモをDocker上で動かす" data-url="http://t-hiroyoshi.github.io/scala-native-demo-docker/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+    
+      
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/docker-machine-bash/" itemprop="url">
+                  Docker Machineでbashを使えるようにする
+                </a>
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-06-19T23:22:43+09:00" content="2016-06-19">
+              2016-06-19
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/docker/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#docker</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/shell/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#shell</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        
+          <span itemprop="articleBody">
+            <p>Docker Machineめっちゃ便利ですがBoot2Docker上で作業をしている時、コンテナをShell Scriptで管理していて困ったことありませんか?</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">docker@dev:/Users/t-hiroyoshi/git/some-project/docker$ ./manage.sh build</div><div class="line">env: can&apos;t execute &apos;bash&apos;: No such file or directory</div></pre></td></tr></table></figure>
+<p>bashがBoot2Dockerに入ってない!これは困る!ということでBoot2Dockerにbashを入れる方法です。<br>Boot2Dockerは<a href="http://tinycorelinux.net" target="_blank" rel="external">Tiny Core Linux</a>ベースで動いているのでそのパッケージ管理システム(<a href="http://wiki.tinycorelinux.net/wiki:tce-load" target="_blank" rel="external">tce-load</a>)を利用してあげれば万事解決です。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">docker@dev:/Users/t-hiroyoshi/git/some-project/docker$ tce-load -wi bash</div></pre></td></tr></table></figure>
+<p>これでbashが使えるようになったのでbash Shell Scriptが使えます。<br>Docker Machine(Boot2Docker)上に状態を持つのはあまり良くない気がしますがまあbashぐらいはあってもいいのではと思いました。</p>
+
+          </span>
+        
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Docker Machineでbashを使えるようにする" data-url="http://t-hiroyoshi.github.io/docker-machine-bash/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+    
+      
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/spray-akka-benchmark/" itemprop="url">
                   Akka HTTP vs Spray
                 </a>
@@ -497,250 +698,10 @@
   </article>
 
     
-      
-  
-  
-  
-  
-  
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    
-      <header class="post-header">
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/react-drag-drop/" itemprop="url">
-                  ReactでDrag&Drop
-                </a>
-              
-            
-          </h1>
-        
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2015-12-14T22:00:00+09:00" content="2015-12-14">
-              2015-12-14
-            </time>
-          </span>
-          
-            <span class="post-tag" >
-              &nbsp; | &nbsp; Tag
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/reactjs/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#reactjs</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/client/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#client</span>
-                    </a>
-                </span>
-                
-                
-              
-            </span>
-          
-        </div>
-      </header>
-    
-    <div class="post-body">
-      
-      
-      
-        
-          <span itemprop="articleBody">
-            <h1 id="ReactDnDについて"><a href="#ReactDnDについて" class="headerlink" title="ReactDnDについて"></a>ReactDnDについて</h1><p>Reactでdrag&amp;dropコンポーネントを実装するのにおそらく一番有名(Redux作った人が作った)かつドキュメントが豊富なパッケージです。<a href="http://gaearon.github.io/react-dnd/" target="_blank" rel="external">ドキュメント</a>の情報量が結構多く自由度が高くて混乱しやすいので軽く使ってみたい人向けに核となるところだけ解説します。Danさん本当好き。</p>
-<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>各コンポーネントをdrggable&amp;droppable化するためのAPIがES7のdecoratorとして提供されています。<br>babel6使っている人はdecoratorがまだ公式では対応していないみたいなので注意してください(babel5なら大丈夫です)。公式じゃなければbabel6用のプラグイン作っている人がいたと思うので探してみてください。</p>
-<h2 id="DragSource"><a href="#DragSource" class="headerlink" title="DragSource"></a>DragSource</h2><p>ドラッグされるコンポーネントについての設定を行える。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</div><div class="line"><span class="keyword">import</span> &#123; DragSource &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</div><div class="line"></div><div class="line">@DragSouce(type, spec, collect)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DragComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="comment">// something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>type</code>: dorpされる側はここで設定した<code>type</code>を見てdropを受け入れるか否かを決める、SymbolかString。</p>
-<p><code>spec</code>: drag開始時の処理、drag終了時(dropされた時)の処理とかを書いたObject。例が後半にあります。</p>
-<p><code>collect</code>: <code>DragComponent</code>内で使う関数を取り出す関数でobjectを返す必要があります。connectとmonitorが引数として渡されます。ざっくり言うとconnectはDOMについて、monitorはdrag&amp;dropの状態についてのObjectです、結構色々取れるので公式ドキュメント見てみてください。</p>
-<h2 id="DropTarget"><a href="#DropTarget" class="headerlink" title="DropTarget"></a>DropTarget</h2><p>ドロップされるコンポーネントについての設定を行える。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</div><div class="line"><span class="keyword">import</span> &#123; DropTarget &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</div><div class="line"></div><div class="line">@DropTarget(types, spec, collect)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DropComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="comment">// something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>types</code>: dropを受け入れる<code>type</code>を設定する、SymbolかStringかArray。</p>
-<p><code>spec</code>: dropを受け入れた時の処理やhoverされている時の処理を書いたObject。例が後半にあります。</p>
-<p><code>collect</code>: DragSourceの<code>collect</code>と同じ</p>
-<h2 id="DragDropContext"><a href="#DragDropContext" class="headerlink" title="DragDropContext"></a>DragDropContext</h2><p>上記のコンポーネント達をこいつでラップすることで初めてdrag&amp;dropができるようになる。Backendが必要。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</div><div class="line"><span class="keyword">import</span> HTML5Backend <span class="keyword">from</span> <span class="string">"react-dnd-html5-backend"</span>;</div><div class="line"><span class="keyword">import</span> &#123; DragDropContext &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</div><div class="line"></div><div class="line">@DragDropContext(HTML5Backend)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DnDComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="comment">// something</span></div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      <span class="comment">// DragComponent &amp; DropComponent</span></div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>例では<code>HTML5Backend</code>を使っているのでタッチには対応していません。タッチ対応のBackendもあるのでタッチ対応させたい人は探してみてください。</p>
-<h1 id="実装例"><a href="#実装例" class="headerlink" title="実装例"></a>実装例</h1><p>drag&amp;dropするとメッセージを表示するコンポーネントを作ってみます。</p>
-<h2 id="DnDItem-Componentを作る"><a href="#DnDItem-Componentを作る" class="headerlink" title="DnDItem Componentを作る"></a>DnDItem Componentを作る</h2><p>実際にdrag&amp;dropされるコンポーネントを作ります。<br>DragSourceとDropTargetは同時に使うことでdragもdropもできるコンポーネントを作ることが可能です。</p>
-<p>drag&amp;dropされたときのactionは親からpropsとして受け取ります。<br>またtypeも同様に親からpropsとして受け取っています。</p>
-<p>DragSourceとDropTarget間は基本的にmonitorを通して値のやり取りをします。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</div><div class="line"><span class="keyword">import</span> &#123; DragSource, DropTarget &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> dragSpec = &#123;</div><div class="line">  <span class="comment">// dragが始まったときの処理</span></div><div class="line">  beginDrag(props) &#123;</div><div class="line">    <span class="comment">// dragされ始めたら自分のidを返す</span></div><div class="line">    <span class="keyword">const</span> &#123; id &#125; = props;</div><div class="line">    <span class="keyword">return</span> &#123; id &#125;;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// dragが終わったときの処置</span></div><div class="line">  endDrag(props, monitor) &#123;</div><div class="line">    <span class="comment">// beginDragで返されたidを取ってくる</span></div><div class="line">    <span class="keyword">const</span> source = monitor.getItem();</div><div class="line">    <span class="comment">// dropSpecのdropで返されたidを取ってくる</span></div><div class="line">    <span class="keyword">const</span> target = monitor.getDropResult();</div><div class="line">    <span class="comment">// dropActionを発火させる</span></div><div class="line">    <span class="keyword">if</span> (target) props.dropAction(source.id, target.id);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> dropSpec = &#123;</div><div class="line">  <span class="comment">// dropされたときの処理</span></div><div class="line">  drop(props, monitor, component) &#123;</div><div class="line">    <span class="comment">// dropされたら自分のidを返す</span></div><div class="line">    <span class="keyword">const</span> &#123; id &#125; = props;</div><div class="line">    <span class="keyword">return</span> &#123; id &#125;;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// DropTargetとDragSourceを使っているのでdragもdropもできる</span></div><div class="line">@DropTarget(<span class="function"><span class="params">props</span> =&gt;</span> props.type, dropSpec, connect =&gt; (&#123; <span class="attr">connectDropTarget</span>: connect.dropTarget() &#125;))</div><div class="line">@DragSource(<span class="function"><span class="params">props</span> =&gt;</span> props.type, dragSpec, connect =&gt; (&#123; <span class="attr">connectDragSource</span>: connect.dragSource() &#125;))</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DnDItem</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">static</span> propTypes = &#123;</div><div class="line">    <span class="attr">connectDragSource</span>: React.PropTypes.func.isRequired,</div><div class="line">    <span class="attr">connectDropTarget</span>: React.PropTypes.func.isRequired,</div><div class="line">    <span class="attr">dropAction</span>: React.PropTypes.func.isRequired,</div><div class="line">    <span class="attr">id</span>: React.PropTypes.string.isRequired,</div><div class="line">    <span class="attr">name</span>: React.PropTypes.string.isRequired</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> &#123;</div><div class="line">      connectDragSource,</div><div class="line">      connectDropTarget,</div><div class="line">      name</div><div class="line">    &#125; = <span class="keyword">this</span>.props;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> connectDragSource(connectDropTarget(</div><div class="line">      &lt;li&gt;</div><div class="line">        &lt;h3&gt;&#123;name&#125;&lt;/h3&gt;</div><div class="line">      &lt;/li&gt;</div><div class="line">    ));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="DnDField-Componentを作る"><a href="#DnDField-Componentを作る" class="headerlink" title="DnDField Componentを作る"></a>DnDField Componentを作る</h2><p>DnDItem Componentをラップする親玉を作ります、stateはこのコンポーネントで管理して更新用のactionをDnDItemに渡します。</p>
-<p>今回はidをkeyとして渡しています、keyはReactDnD内部でのDOMの参照に使われるのでValueObjectである必要があります。あまりにも適当なものを渡すと壊れるので気をつけてください(React始めたばっかりの時Math.random()とか渡してて死にそうになった)。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</div><div class="line"><span class="keyword">import</span> HTML5Backend <span class="keyword">from</span> <span class="string">"react-dnd-html5-backend"</span>;</div><div class="line"><span class="keyword">import</span> &#123; DragDropContext &#125; <span class="keyword">from</span> <span class="string">"react-dnd"</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> DnDItem <span class="keyword">from</span> <span class="string">"./DnDItem"</span>;</div><div class="line"></div><div class="line"><span class="comment">// DragDropContextでラップする</span></div><div class="line">@DragDropContext(HTML5Backend)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">DnDField</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">list</span>: [</div><div class="line">        &#123;<span class="attr">id</span>: <span class="string">"1"</span>, <span class="attr">name</span>: <span class="string">"foo"</span>&#125;,</div><div class="line">        &#123;<span class="attr">id</span>: <span class="string">"2"</span>, <span class="attr">name</span>: <span class="string">"bar"</span>&#125;,</div><div class="line">        &#123;<span class="attr">id</span>: <span class="string">"3"</span>, <span class="attr">name</span>: <span class="string">"bad"</span>&#125;,</div><div class="line">        &#123;<span class="attr">id</span>: <span class="string">"4"</span>, <span class="attr">name</span>: <span class="string">"qux"</span>&#125;</div><div class="line">      ],</div><div class="line">      <span class="attr">message</span>: <span class="string">""</span></div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  dropAction(sourceId, targetId) &#123;</div><div class="line">    <span class="keyword">const</span> &#123; list &#125; = <span class="keyword">this</span>.state;</div><div class="line"></div><div class="line">    <span class="comment">// message更新 Redux使うならここでaction, それぞれのidが渡ってくる</span></div><div class="line">    <span class="keyword">const</span> sourceName = list.find(<span class="function"><span class="params">item</span> =&gt;</span> item.id === sourceId).name;</div><div class="line">    <span class="keyword">const</span> targetName = list.find(<span class="function"><span class="params">item</span> =&gt;</span> item.id === targetId).name;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">message</span>: <span class="string">`<span class="subst">$&#123;sourceName&#125;</span> dropped on <span class="subst">$&#123;targetName&#125;</span>`</span>&#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render()</div><div class="line">    <span class="keyword">const</span> &#123; list, message &#125; = <span class="keyword">this</span>.state;</div><div class="line">    <span class="keyword">const</span> itemType = <span class="built_in">Symbol</span>(<span class="string">"item"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;h1&gt;&#123;message&#125;&lt;/h1&gt;</div><div class="line">        &lt;ol&gt;</div><div class="line">          &#123;list.map(item =&gt;</div><div class="line">            &lt;DnDItem id=&#123;item.id&#125; name=&#123;item.name&#125; type=&#123;itemType&#125; dropAction=&#123;::this.dropAction&#125; key=&#123;item.id&#125;/&gt;</div><div class="line">          )&#125;</div><div class="line">        &lt;/ol&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>これでdragされたComponentのidとdropされたComponentのidが取得できる実装が出来ました。idが取得できればあとはどうにでもできるので実際の開発に生かすことができればと思います。</p>
-<p>今回紹介したのはReactDnDのほんの一部で他にもたくさんのオプションがあるので是非ドキュメントを読んでカスタムしてみてください。</p>
-
-          </span>
-        
-      
-    </div>
-    <footer class="post-footer">
-      <div class="twitter-share-button-wrap">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-text="ReactでDrag&Drop" data-url="http://t-hiroyoshi.github.io/react-drag-drop/" data-via="t_hiroyoshi">Twitter</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      </div>
-      
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-    
-      
-  
-  
-  
-  
-  
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    
-      <header class="post-header">
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/start-hexo/" itemprop="url">
-                  Hexoを使って無料でブログを公開する
-                </a>
-              
-            
-          </h1>
-        
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2015-11-19T22:14:39+09:00" content="2015-11-19">
-              2015-11-19
-            </time>
-          </span>
-          
-            <span class="post-tag" >
-              &nbsp; | &nbsp; Tag
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/hexo/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#hexo</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/github/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#github</span>
-                    </a>
-                </span>
-                
-                
-              
-            </span>
-          
-        </div>
-      </header>
-    
-    <div class="post-body">
-      
-      
-      
-        
-          <span itemprop="articleBody">
-            <h1 id="なぜHexoなのか"><a href="#なぜHexoなのか" class="headerlink" title="なぜHexoなのか"></a>なぜHexoなのか</h1><ul>
-<li>Node.jsでやれる</li>
-<li>めっちゃ簡単に静的サイトを構築できる</li>
-<li>テーマが多くて完成度が高い、さらにカスタムできる</li>
-<li>Markdownで記事が書けるので嬉しいよ!<br><br></li>
-</ul>
-<h1 id="Hexoを使ってブログを公開するまでの手順"><a href="#Hexoを使ってブログを公開するまでの手順" class="headerlink" title="Hexoを使ってブログを公開するまでの手順"></a>Hexoを使ってブログを公開するまでの手順</h1><h2 id="Hexoをインストールする"><a href="#Hexoをインストールする" class="headerlink" title="Hexoをインストールする"></a>Hexoをインストールする</h2><p>まずはnpmでHexoをインストールします。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
-<p>次にブログの雛形を作成して依存パッケージをインストールします。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">hexo init &lt;your-blog-name&gt;</div><div class="line"><span class="built_in">cd</span> &lt;your-blog-name&gt;</div><div class="line">npm install</div></pre></td></tr></table></figure>
-<p>ここまでくれば実際にページを見ることが可能です、<code>hexo server</code>と打った後<a href="http://localhost:4000" target="_blank" rel="external">localhost:4000</a>にアクセスしてみてください。デフォルトのテーマなので好みはあると思いますが、テーマは後で変えられるので安心してください!</p>
-<h2 id="Github-Pagesでブログを公開する"><a href="#Github-Pagesでブログを公開する" class="headerlink" title="Github Pagesでブログを公開する"></a>Github Pagesでブログを公開する</h2><p>ブログをGitHub Pagesを利用して公開してみようと思います、まずは<code>&lt;user-name&gt;.github.io</code>という名前のレポジトリを作成します。<br>デプロイはGitで行いたいと思うのでプラグインをインストールします。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<p>次にレポジトリの登録を行います、先ほど作成した雛形の中にある<code>_config.yml</code>を下記のように編集してください。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Deployment</span></div><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> git</div><div class="line"><span class="attr">  repo:</span> git@github.com:&lt;user-name&gt;/&lt;user-name&gt;.github.io.git</div><div class="line"><span class="attr">  branch:</span> master</div></pre></td></tr></table></figure>
-<p>これでブログを公開する準備は完了です、デプロイしてみましょう。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">hexo deploy -g</div></pre></td></tr></table></figure>
-<p>無事にデプロイできたら<code>http://&lt;user-name&gt;.github.io</code>にアクセスしてみてください、ブログが表示されれば成功です!</p>
-<h2 id="記事の追加をする"><a href="#記事の追加をする" class="headerlink" title="記事の追加をする"></a>記事の追加をする</h2><p>記事の追加は下記のコマンドを打つことで可能です、タイトルがそのままファイル名になるので日本語などは避けたほうが良いです。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">hexo new <span class="string">"page-title"</span></div></pre></td></tr></table></figure>
-<p>そうすると<code>source/_posts</code>の中に<code>page-title.md</code>ができていると思います、Markdownでゴリゴリ中身を書きましょう。<code>hexo server</code>でサーバーを動かしながら書くとブラウザをリロードするたびに更新されていくのでプレビュー代わりに使えます。<br>記事を書き終えたら公開して、Github Pagesにアクセスして実際に見てみてください。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">hexo deploy -g</div></pre></td></tr></table></figure>
-<h2 id="テーマをインストールする"><a href="#テーマをインストールする" class="headerlink" title="テーマをインストールする"></a>テーマをインストールする</h2><p>まずはGithubなどで導入したいテーマを見つけてきてください、多分<code>hexo theme</code>とかで検索するとたくさん出てくると思います。細かい部分は自分で変更できるのでだいたい雰囲気で選んで良いと思います。良い感じのテーマが見つかったらクローンしてきます。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="built_in">cd</span> themes</div><div class="line">git <span class="built_in">clone</span> git@github.com:&lt;theme-auther&gt;/&lt;theme-name&gt;.git</div></pre></td></tr></table></figure>
-<p>次に先ほどの<code>_config.yml</code>を書き換えます。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Extensions</span></div><div class="line"><span class="attr">theme:</span> &lt;theme-name<span class="string">&gt;</span></div></pre></td></tr></table></figure>
-<p>これでテーマが適応されました、<code>hexo server</code>して実際に見てみてください。<br>テーマの細かい設定はそれぞれのテーマの<code>themes/&lt;theme-name&gt;/_config.yml</code>を変更することで可能です。<br>ある程度気にいる形になったらデプロイして公開しましょう!</p>
-<p>テーマやスタイルシートを変更した後にデプロイしてもデザインが変更されないことがあると思いますが、これは下のコマンドで解決することができます。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">hexo clean</div></pre></td></tr></table></figure>
-<p>この後に再びデプロイしてみてください、テーマやデザインシートの変更が反映されていると思います!</p>
-<h1 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h1><p>Hexoを使ってブログを公開する方法を書きました。<br>Hexoは静的サイトの構築が本当に簡単にできる素晴らしいツールだと思います、テーマも非常に完成度が高いものが多いので一瞬にしてそれなりにちゃんとしたブログが作れてしまうのは本当に驚きです。<br>ただHexoを使っていてひとつ辛いのは中国圏のユーザーが多いので英語ではなく中国語のドキュメント、ディスカッションが多いという点です、英語ならそれなりに読めますが中国語は辛い…</p>
-
-          </span>
-        
-      
-    </div>
-    <footer class="post-footer">
-      <div class="twitter-share-button-wrap">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Hexoを使って無料でブログを公開する" data-url="http://t-hiroyoshi.github.io/start-hexo/" data-via="t_hiroyoshi">Twitter</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      </div>
-      
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-    
   </section>
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

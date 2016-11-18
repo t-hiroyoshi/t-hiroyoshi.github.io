@@ -132,6 +132,248 @@
             
               
                 
+                <a class="post-title-link" href="/yarn-global-link/" itemprop="url">
+                  yarn global addしたパッケージのパスを通す
+                </a>
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-11-18T13:17:12+09:00" content="2016-11-18">
+              2016-11-18
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/reactjs/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#reactjs</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        
+          <span itemprop="articleBody">
+            <p><code>yarn global add</code>しても自動でパス通してくれないっぽい<a href="https://github.com/yarnpkg/yarn/issues/1585" target="_blank" rel="external">バグ</a>があるようで</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ yarn global add create-react-app</div><div class="line">$ create-react-app</div><div class="line">zsh: <span class="built_in">command</span> not found: create-react-app</div></pre></td></tr></table></figure>
+<p>ってなったので~/.zshrcに以下を追加しました。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">export PATH=&quot;$PATH:`yarn global bin`&quot;</div></pre></td></tr></table></figure>
+<p>もう一回やってみると行けます。</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">create-react-app</span></div><div class="line"><span class="string">Usage:</span> <span class="built_in">create-react-app</span> &lt;<span class="string">project-directory&gt;</span> [<span class="built_in">--verbose]</span></div></pre></td></tr></table></figure>
+<p><code>yarn global</code>には結構バグがあるっぽいので早く安定してほしいですね。</p>
+
+          </span>
+        
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="yarn global addしたパッケージのパスを通す" data-url="http://t-hiroyoshi.github.io/yarn-global-link/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+    
+      
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/webpack-devtool/" itemprop="url">
+                  webpackで使えるSourceMap一覧まとめ
+                </a>
+              
+            
+          </h1>
+        
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-11-04T00:41:46+09:00" content="2016-11-04">
+              2016-11-04
+            </time>
+          </span>
+          
+            <span class="post-tag" >
+              &nbsp; | &nbsp; Tag
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
+                    </a>
+                </span>
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                    <a href="/tags/webpack/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#webpack</span>
+                    </a>
+                </span>
+                
+                
+              
+            </span>
+          
+        </div>
+      </header>
+    
+    <div class="post-body">
+      
+      
+      
+        
+          <span itemprop="articleBody">
+            <ul>
+<li><code>eval</code>: それぞれのモジュールはevalとして実行され<code>//@ sourceURL</code>が付けられます</li>
+<li><code>source-map</code>: SourceMapを完全に別ファイルとして生成します。<code>output.sourceMapFilename</code>で設定が可能です</li>
+<li><code>hidden-source-map</code>: <code>source-map</code>と同様SourceMapを別ファイルとして生成しますがバンドルに参照コメントを含みません</li>
+<li><code>inline-source-map</code>: SourceMapはDataUrlとしてバンドルされます</li>
+<li><code>eval-source-map</code>: それぞれのモジュールはevalとして実行され、SourceMapはDataUrlとしてevalに追加されます</li>
+<li><code>cheap-source-map</code>: SourceMapは列を無視して生成されます。loaderで読み込まれたSourceMapは無視されます。</li>
+<li><code>cheap-module-source-map</code>: SourceMapは列を無視して生成されます。ロードされたソースマップを1行に1つのマッピングに単純化されます。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">devtool</th>
+<th style="text-align:center">build</th>
+<th style="text-align:center">rebuild</th>
+<th style="text-align:center">production</th>
+<th style="text-align:center">quality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">eval</td>
+<td style="text-align:center">+++</td>
+<td style="text-align:center">+++</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">generated code</td>
+</tr>
+<tr>
+<td style="text-align:center">cheap-eval-source-map</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">++</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">transformed code (lines only)</td>
+</tr>
+<tr>
+<td style="text-align:center">cheap-source-map</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">transformed code (lines only)</td>
+</tr>
+<tr>
+<td style="text-align:center">cheap-module-eval-source-map</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">++</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">original source (lines only)</td>
+</tr>
+<tr>
+<td style="text-align:center">cheap-module-source-map</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">original source (lines only)</td>
+</tr>
+<tr>
+<td style="text-align:center">eval-source-map</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">original source</td>
+</tr>
+<tr>
+<td style="text-align:center">source-map</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">original source</td>
+</tr>
+</tbody>
+</table>
+
+          </span>
+        
+      
+    </div>
+    <footer class="post-footer">
+      <div class="twitter-share-button-wrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="webpackで使えるSourceMap一覧まとめ" data-url="http://t-hiroyoshi.github.io/webpack-devtool/" data-via="t_hiroyoshi">Twitter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+    
+      
+  
+  
+  
+  
+  
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    
+      <header class="post-header">
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/go-yuru-json/" itemprop="url">
                   GoのJSON API ServerでゆるふわJSON responseを返す方法
                 </a>
@@ -237,8 +479,8 @@
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/reactjs/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#reactjs</span>
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
                     </a>
                 </span>
                 
@@ -247,8 +489,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/javascript/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#javascript</span>
+                    <a href="/tags/reactjs/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#reactjs</span>
                     </a>
                 </span>
                 
@@ -426,211 +668,10 @@
   </article>
 
     
-      
-  
-  
-  
-  
-  
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    
-      <header class="post-header">
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/scala-native-demo-docker/" itemprop="url">
-                  Scala NativeのデモをDocker上で動かす
-                </a>
-              
-            
-          </h1>
-        
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2016-07-14T13:23:02+09:00" content="2016-07-14">
-              2016-07-14
-            </time>
-          </span>
-          
-            <span class="post-tag" >
-              &nbsp; | &nbsp; Tag
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/scala/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#scala</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/docker/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#docker</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/scala-native/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#scala-native</span>
-                    </a>
-                </span>
-                
-                
-              
-            </span>
-          
-        </div>
-      </header>
-    
-    <div class="post-body">
-      
-      
-      
-        
-          <span itemprop="articleBody">
-            <p>こんにちは、t-hiroyoshiです。<br>最近は<a href="http://event.scaladays.org/scaladays-nyc-2016" target="_blank" rel="external">Scala Days 2016 NYC</a>で発表された<a href="https://github.com/scala-native/scala-native" target="_blank" rel="external">Scala Native</a>にコントリビュートしています。Scalaのような強力な言語がbare metalで動くのは素晴らしい事だと思っているので早く実用レベルで動くようにこれからも積極的に貢献していきたいです。</p>
-<p>そんな訳で今回は布教を兼ねてScala NativeのデモをDocker上で簡単に動かす方法を紹介したいと思います。</p>
-<h1 id="Scala-Native"><a href="#Scala-Native" class="headerlink" title="Scala Native"></a>Scala Native</h1><p>Scala Nativeとは何かと言うと、ScalaのコードをLLVMのIR経由でコンパイルしてNative実行可能にするAOTコンパイラ(AheadOfTimeCompiler)実装です。<br>一部低級な処理向けにScalaを拡張しているのである意味別言語と言っても過言ではないかもしれません。<br>これらの拡張によってScalaをSystem level languageに落とし込めるのでその気になればScalaで何でも作れるわけで、とても未来が楽しみです。</p>
-<p>ただREADMEに<code>pre-release stage</code>とあるようにまだ完全にScala-likeには動きません、ですが活発にIssueやPull reqが飛んでいるので近いうちにまともに動くようになると思っています。(まだ完成していない今ならコントリビュートのチャンス?)</p>
-<p>現在はLLVM(Clang)とBOEHM GCをローカル環境に依存しているのでデモを動かすまでにそれらのパスが通らなかったり、依存解決で結構躓く人が多いみたいです。<br>そこでScala Nativeのレポジトリ内にあるDockerfileを使って作ったコンテナ内でデモを動かしてみたいと思います。管理用のスクリプトもきちんとあるので比較的簡単に動かす事が可能です。</p>
-<h1 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h1><h2 id="docker-machineを立てる-Option"><a href="#docker-machineを立てる-Option" class="headerlink" title="docker-machineを立てる(Option)"></a>docker-machineを立てる(Option)</h2><p>なるべくローカルの環境を汚染したくないのでdocker-machineでDockerホストを立てます。<br>driverは<code>virtualbox</code>を使っていますが<code>vmwarefusion</code>で立てた方がもしかしたら<a href="http://qiita.com/suin/items/c4ba1cfd354586bbed59" target="_blank" rel="external">速い</a>かもです(Scalaはcompile時間が長いと言われている)。<br>メモリを指定しないと1Gしか割り当てられないので増やしておきます。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ docker-machine create -d virtualbox --virtualbox-memory 2048 scalanative</div></pre></td></tr></table></figure>
-<p>docker-machineが立ち上がったらsshで繋ぎます。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ docker-machine ssh scala-native</div></pre></td></tr></table></figure>
-<p>管理用のスクリプトはbashで動くのですが、Boot2Dockerは標準でbashが入っていないので次に進む前に<a href="https://t-hiroyoshi.github.io/docker-machine-bash/">ここ</a>を参考にbashをインストールしてください。</p>
-<h2 id="Scala-Nativeのコンテナイメージをビルドする"><a href="#Scala-Nativeのコンテナイメージをビルドする" class="headerlink" title="Scala Nativeのコンテナイメージをビルドする"></a>Scala Nativeのコンテナイメージをビルドする</h2><p>まずはともかくScala Nativeのソースをcloneしてきます。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ git clone https://github.com/scala-native/scala-native.git</div></pre></td></tr></table></figure>
-<p><code>scala-native/docker</code>の中にDockerfileがあるので移動して管理用のスクリプトを叩きます。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ cd scala-native/docker</div><div class="line">$ ./manage.sh build</div></pre></td></tr></table></figure>
-<p>色々ダウンロードしたりするので結構時間がかかります。</p>
-<p>時間がかかります辛抱強く待って下さい、コーヒーでも飲んでいれば良いと思います。<br>ビルドが終わったらいよいよデモを動かします。</p>
-<h2 id="Scala-Nativeのデモを実行する"><a href="#Scala-Nativeのデモを実行する" class="headerlink" title="Scala Nativeのデモを実行する"></a>Scala Nativeのデモを実行する</h2><p>スクリプトを叩いてビルドしたコンテナの中に入ります。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ ./manage.sh run</div></pre></td></tr></table></figure>
-<p>ここでエラーが出てsbtプロジェクトが読み込まれない方は<code>scala-native/</code>配下のtargetフォルダを全て削除してみてください。<br>コンテナに入れたらsbtを起動してデモがあるdemoNativeプロジェクトを指定します。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ sbt</div><div class="line">&gt; project demoNative</div><div class="line">&gt; run</div></pre></td></tr></table></figure>
-<p>後は<code>run</code>すればデモが動き出してコンパイルされたバイナリが<code>scala-native/demo/native/target/scala-2.11/demonative-out</code>に吐き出されているはずです。</p>
-<p>これはそのまま実行できるのでいろいろ試してみてください。</p>
-
-          </span>
-        
-      
-    </div>
-    <footer class="post-footer">
-      <div class="twitter-share-button-wrap">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Scala NativeのデモをDocker上で動かす" data-url="http://t-hiroyoshi.github.io/scala-native-demo-docker/" data-via="t_hiroyoshi">Twitter</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      </div>
-      
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-    
-      
-  
-  
-  
-  
-  
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    
-      <header class="post-header">
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/docker-machine-bash/" itemprop="url">
-                  Docker Machineでbashを使えるようにする
-                </a>
-              
-            
-          </h1>
-        
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2016-06-19T23:22:43+09:00" content="2016-06-19">
-              2016-06-19
-            </time>
-          </span>
-          
-            <span class="post-tag" >
-              &nbsp; | &nbsp; Tag
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/docker/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#docker</span>
-                    </a>
-                </span>
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/shell/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#shell</span>
-                    </a>
-                </span>
-                
-                
-              
-            </span>
-          
-        </div>
-      </header>
-    
-    <div class="post-body">
-      
-      
-      
-        
-          <span itemprop="articleBody">
-            <p>Docker Machineめっちゃ便利ですがBoot2Docker上で作業をしている時、コンテナをShell Scriptで管理していて困ったことありませんか?</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">docker@dev:/Users/t-hiroyoshi/git/some-project/docker$ ./manage.sh build</div><div class="line">env: can&apos;t execute &apos;bash&apos;: No such file or directory</div></pre></td></tr></table></figure>
-<p>bashがBoot2Dockerに入ってない!これは困る!ということでBoot2Dockerにbashを入れる方法です。<br>Boot2Dockerは<a href="http://tinycorelinux.net" target="_blank" rel="external">Tiny Core Linux</a>ベースで動いているのでそのパッケージ管理システム(<a href="http://wiki.tinycorelinux.net/wiki:tce-load" target="_blank" rel="external">tce-load</a>)を利用してあげれば万事解決です。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">docker@dev:/Users/t-hiroyoshi/git/some-project/docker$ tce-load -wi bash</div></pre></td></tr></table></figure>
-<p>これでbashが使えるようになったのでbash Shell Scriptが使えます。<br>Docker Machine(Boot2Docker)上に状態を持つのはあまり良くない気がしますがまあbashぐらいはあってもいいのではと思いました。</p>
-
-          </span>
-        
-      
-    </div>
-    <footer class="post-footer">
-      <div class="twitter-share-button-wrap">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Docker Machineでbashを使えるようにする" data-url="http://t-hiroyoshi.github.io/docker-machine-bash/" data-via="t_hiroyoshi">Twitter</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      </div>
-      
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-    
   </section>
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

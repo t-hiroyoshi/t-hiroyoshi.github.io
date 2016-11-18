@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="use-motion">
 <head>
-  <title>GoのJSON API ServerでゆるふわJSON responseを返す方法 | t-hiroyoshi-blog</title>
+  <title>yarn global addしたパッケージのパスを通す | t-hiroyoshi-blog</title>
   <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -10,7 +10,7 @@
 <link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" async/>
 <link href="/css/main.css?v=1" rel="stylesheet" type="text/css" async/>
 
-<meta name="keywords" content="golang, go, gin, json, http, api" />
+<meta name="keywords" content="yarn, nodejs, npm, javascript, reactjs, react" />
 
 
 
@@ -19,19 +19,25 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png?v=1" />
 
-<meta name="description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
+<meta name="description" content="yarn global addしても自動でパス通してくれないっぽいバグがあるようで
+$ yarn global add create-react-app$ create-react-appzsh: command not found: create-react-app
+ってなったので~/.zshrcに以下を追加しました。
+export PATH=&amp;quot;$PATH:`yarn global b">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GoのJSON API ServerでゆるふわJSON responseを返す方法">
-<meta property="og:url" content="http://t-hiroyoshi.github.io/go-yuru-json/index.html">
+<meta property="og:title" content="yarn global addしたパッケージのパスを通す">
+<meta property="og:url" content="http://t-hiroyoshi.github.io/yarn-global-link/index.html">
 <meta property="og:site_name" content="t-hiroyoshi-blog">
-<meta property="og:description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
-<meta property="og:updated_time" content="2016-11-03T15:47:17.000Z">
+<meta property="og:description" content="yarn global addしても自動でパス通してくれないっぽいバグがあるようで
+$ yarn global add create-react-app$ create-react-appzsh: command not found: create-react-app
+ってなったので~/.zshrcに以下を追加しました。
+export PATH=&amp;quot;$PATH:`yarn global b">
+<meta property="og:updated_time" content="2016-11-18T04:20:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GoのJSON API ServerでゆるふわJSON responseを返す方法">
-<meta name="twitter:description" content="最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。
-JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでし">
+<meta name="twitter:title" content="yarn global addしたパッケージのパスを通す">
+<meta name="twitter:description" content="yarn global addしても自動でパス通してくれないっぽいバグがあるようで
+$ yarn global add create-react-app$ create-react-appzsh: command not found: create-react-app
+ってなったので~/.zshrcに以下を追加しました。
+export PATH=&amp;quot;$PATH:`yarn global b">
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = { motion: true };
 </script>
@@ -126,7 +132,7 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
             
             
               
-                GoのJSON API ServerでゆるふわJSON responseを返す方法
+                yarn global addしたパッケージのパスを通す
               
             
           </h1>
@@ -134,8 +140,8 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
         <div class="post-meta">
           <span class="post-time">
             Posted on
-            <time itemprop="dateCreated" datetime="2016-10-25T19:24:09+09:00" content="2016-10-25">
-              2016-10-25
+            <time itemprop="dateCreated" datetime="2016-11-18T13:17:12+09:00" content="2016-11-18">
+              2016-11-18
             </time>
           </span>
           
@@ -143,8 +149,8 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
               &nbsp; | &nbsp; Tag
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/server/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#server</span>
+                    <a href="/tags/javascript/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#javascript</span>
                     </a>
                 </span>
                 
@@ -153,8 +159,8 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
                 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                    <a href="/tags/go/" itemprop="url" rel="index">
-                      <span itemprop="name">&nbsp;#go</span>
+                    <a href="/tags/reactjs/" itemprop="url" rel="index">
+                      <span itemprop="name">&nbsp;#reactjs</span>
                     </a>
                 </span>
                 
@@ -169,32 +175,31 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
       
       
       
-        <span itemprop="articleBody"><p>最近GoをAPI Gateway(Aggregator)としている環境で開発を行なっているのですが、呼び出し先のServiceの実装が終わっていなくてもClientでとりあえずJSONのresponseが欲しいという状況がありました。</p>
-<p>JSONのUnmarshalについては<a href="https://www.kaoriya.net/blog/2016/06/25/" target="_blank" rel="external">golangはゆるふわにJSONを扱えまぁす!</a>という記事が有ったのですが、ゆるふわMarshalについては情報がありませんでした。</p>
-<p>ですが考えてみればjson.Marshal()すると<code>[]byte</code>型になるのでそれを初めから作ってあげればよかったです。<br>まあもちろんこれではGoの良いところを捨てているようなものですが、開発中のとりあえずのレスポンスには手軽で良いと思いました。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">jsonResponse</span><span class="params">(rw http.ResponseWriter, req *http.Request)</span></span> &#123;</div><div class="line">    response := []<span class="keyword">byte</span>(<span class="string">`</span></div><div class="line">        &#123;</div><div class="line">          "status": "success",</div><div class="line">          "user":</div><div class="line">            &#123;</div><div class="line">              "id": "2d7b8fe1-1e63-4c3b-83b9-46274554e822",</div><div class="line">              "name": "t-hiroyoshi",</div><div class="line">              "birthday": "1993-09-06T11:22:33.496Z"</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    `)</div><div class="line"></div><div class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</div><div class="line">        rw.Header().Set(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>)</div><div class="line">        fmt.Fprint(rw, <span class="keyword">string</span>(response))</div><div class="line">    &#125;()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    http.HandleFunc(<span class="string">"/json"</span>, jsonResponse)</div><div class="line">    http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p><code>yarn global add</code>しても自動でパス通してくれないっぽい<a href="https://github.com/yarnpkg/yarn/issues/1585" target="_blank" rel="external">バグ</a>があるようで</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ yarn global add create-react-app</div><div class="line">$ create-react-app</div><div class="line">zsh: <span class="built_in">command</span> not found: create-react-app</div></pre></td></tr></table></figure>
+<p>ってなったので~/.zshrcに以下を追加しました。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">export PATH=&quot;$PATH:`yarn global bin`&quot;</div></pre></td></tr></table></figure>
+<p>もう一回やってみると行けます。</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">create-react-app</span></div><div class="line"><span class="string">Usage:</span> <span class="built_in">create-react-app</span> &lt;<span class="string">project-directory&gt;</span> [<span class="built_in">--verbose]</span></div></pre></td></tr></table></figure>
+<p><code>yarn global</code>には結構バグがあるっぽいので早く安定してほしいですね。</p>
 </span>
       
     </div>
     <footer class="post-footer">
       <div class="twitter-share-button-wrap">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-text="GoのJSON API ServerでゆるふわJSON responseを返す方法" data-url="http://t-hiroyoshi.github.io/go-yuru-json/" data-via="t_hiroyoshi">Twitter</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="yarn global addしたパッケージのパスを通す" data-url="http://t-hiroyoshi.github.io/yarn-global-link/" data-via="t_hiroyoshi">Twitter</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/try-yarn/" rel="next" title="Yarnでreact-tutorialを動かす">
-                <i class="fa fa-chevron-left"></i> Yarnでreact-tutorialを動かす
+              <a href="/webpack-devtool/" rel="next" title="webpackで使えるSourceMap一覧まとめ">
+                <i class="fa fa-chevron-left"></i> webpackで使えるSourceMap一覧まとめ
               </a>
             
           </div>
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/webpack-devtool/" rel="prev" title="webpackで使えるSourceMap一覧まとめ">
-                webpackで使えるSourceMap一覧まとめ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -241,9 +246,9 @@ JSONのUnmarshalについてはgolangはゆるふわにJSONを扱えまぁす!�
   
   <script type="text/javascript">
     var disqus_shortname = 't-hiroyoshi';
-    var disqus_identifier = 'go-yuru-json/';
-    var disqus_title = 'GoのJSON API ServerでゆるふわJSON responseを返す方法';
-    var disqus_url = 'http://t-hiroyoshi.github.io/go-yuru-json/';
+    var disqus_identifier = 'yarn-global-link/';
+    var disqus_title = 'yarn global addしたパッケージのパスを通す';
+    var disqus_url = 'http://t-hiroyoshi.github.io/yarn-global-link/';
 
     function run_disqus_script(disqus_script){
       var dsq = document.createElement('script');
