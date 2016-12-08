@@ -236,13 +236,13 @@
     </summary>
     
     
-      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="https://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
     
       <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
+    
+      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
     
       <category term="benchmark" scheme="https://t-hiroyoshi.github.io/tags/benchmark/"/>
     
@@ -353,13 +353,13 @@
     </summary>
     
     
-      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="https://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
     
       <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
+    
+      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
     
       <category term="benchmark" scheme="https://t-hiroyoshi.github.io/tags/benchmark/"/>
     
@@ -404,13 +404,13 @@
     </summary>
     
     
-      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="https://t-hiroyoshi.github.io/tags/akka/"/>
     
-      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
     
       <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
+    
+      <category term="spray" scheme="https://t-hiroyoshi.github.io/tags/spray/"/>
     
   </entry>
   
@@ -442,17 +442,17 @@
     </summary>
     
     
-      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
-    
       <category term="akka" scheme="https://t-hiroyoshi.github.io/tags/akka/"/>
-    
-      <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
     
       <category term="adtech" scheme="https://t-hiroyoshi.github.io/tags/adtech/"/>
     
       <category term="aws" scheme="https://t-hiroyoshi.github.io/tags/aws/"/>
     
+      <category term="scala" scheme="https://t-hiroyoshi.github.io/tags/scala/"/>
+    
       <category term="hackathon" scheme="https://t-hiroyoshi.github.io/tags/hackathon/"/>
+    
+      <category term="server" scheme="https://t-hiroyoshi.github.io/tags/server/"/>
     
   </entry>
   
